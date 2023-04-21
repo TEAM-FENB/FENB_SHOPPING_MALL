@@ -14,15 +14,10 @@ import { userState } from '../recoil/atoms';
 // Styled Link
 const SignUpLink = styled(Link)`
   margin-left: 1rem;
-
-  color: black;
-
-  &:visited {
-    color: blue;
-  }
-
+  text-decoration: none;
+  font-weight: 700;
   &:hover {
-    color: purple;
+    color: blue;
   }
 `;
 
@@ -61,6 +56,14 @@ const SignIn = () => {
 
       setUsers({ ...response.data });
       console.log(response.data); // 서버 응답을 출력
+
+      notifications.show({
+        color: 'blue',
+        autoClose: 2000,
+        title: '알림',
+        message: `${response.data.username}님 환영합니다.`,
+        sx: { div: { fontSize: '1.5rem' } },
+      });
 
       if (state) {
         navigate(state);

@@ -25,7 +25,15 @@ const FormInputContainer = ({ inputType, id, name, control, trigger, placeholder
   );
 
   const handleChange = e => {
-    field.onChange(e);
+    if (inputType === 'tel') {
+      const phoneNumber = e.target.value;
+      const phoneNumberWithHyphens = phoneNumber.replace(/\D/g, '').replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
+
+      field.onChange(phoneNumberWithHyphens);
+    } else if (inputType !== 'tel') {
+      field.onChange(e);
+    }
+    console.log('InputContainer');
 
     checkValidation();
   };

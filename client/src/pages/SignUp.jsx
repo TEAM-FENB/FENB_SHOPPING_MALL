@@ -6,15 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { FormInputContainer } from '../components';
+import { FormInputContainer, FormAddressInputContainer, FormZoneCodeInputContainer } from '../components';
 
 // zod Validation
 const validationSchema = z
   .object({
     email: z.string().email({ message: '이메일 주소를 정확히 입력해주세요.' }),
     name: z.string().min(1, { message: '이름을 입력해 주세요.' }),
+    phone: z.string().regex(/^[0-9]{3}-[0-9]{3,4}-[0-9]{4}$/, { message: '휴대전화 번호를 정확히 입력해주세요.' }),
     password: z.string().regex(/^[A-Za-z0-9]{6,12}$/, { message: '영문 또는 숫자를 6~12자 입력하세요.' }),
     confirmPassword: z.string().regex(/^[A-Za-z0-9]{6,12}$/, { message: '패스워드가 일치하지 않습니다.' }),
+    mainAddress: z.string(),
+    detailAddress: z.string(),
+    postcode: z.string(),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: '패스워드가 일치하지 않습니다.',
@@ -23,9 +27,10 @@ const validationSchema = z
 
 // SignUp Component
 const SignUp = () => {
+  const [zoneCode, setZoneCode] = React.useState('');
+  console.log(zoneCode);
   const navigate = useNavigate();
   // const { state } = useLocation();
-
   const {
     handleSubmit,
     control,
@@ -36,13 +41,20 @@ const SignUp = () => {
     defaultValues: {
       email: '',
       name: '',
+      phone: '',
       password: '',
       confirmPassword: '',
+      mainAddress: '',
+      detailAddress: '',
+      postcode: '',
     },
   });
 
+  const setZoneCodeHandler = zoneCode => setZoneCode(zoneCode);
+
   const handleSignUp = async data => {
     try {
+      console.log(data);
       const response = await axios.post('/api/auth/signin', {
         email: data.email,
         password: data.password,
@@ -108,10 +120,20 @@ const SignUp = () => {
           trigger={trigger}
         />
         <FormInputContainer
+          inputType="tel"
+          withAsterisk
+          id="phone"
+          name="휴대전화번호"
+          placeholder="예) 01012345678"
+          control={control}
+          trigger={trigger}
+        />
+        <FormInputContainer
           inputType="password"
           withAsterisk
           id="password"
           name="비밀번호"
+          placeholder="영문 또는 숫자를 6~12자 입력하세요."
           control={control}
           trigger={trigger}
         />
@@ -120,8 +142,26 @@ const SignUp = () => {
           withAsterisk
           id="confirmPassword"
           name="비밀번호 확인"
+          placeholder="영문 또는 숫자를 6~12자 입력하세요."
           control={control}
           trigger={trigger}
+        />
+        <FormAddressInputContainer
+          inputType="text"
+          id="mainAddress"
+          name="주소"
+          placeholder="이곳을 클릭해주세요!!"
+          control={control}
+          trigger={trigger}
+          setZoneCodeHandler={setZoneCodeHandler}
+        />
+        <FormZoneCodeInputContainer
+          inputType="text"
+          id="postcode"
+          name="우편번호"
+          control={control}
+          trigger={trigger}
+          zoneCode={zoneCode}
         />
         <Button
           w="40rem"
