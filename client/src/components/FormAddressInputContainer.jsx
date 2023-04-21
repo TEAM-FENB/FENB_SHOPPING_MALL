@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { useController } from 'react-hook-form';
 import { TextInput, Container } from '@mantine/core';
 
 // AddressInputContainer Component
@@ -8,11 +7,11 @@ const FormAddressInputContainer = ({
   inputType,
   id,
   name,
-  control,
-  // trigger,
   placeholder,
   withAsterisk = false,
-  setZoneCodeHandler,
+  setValue,
+  register,
+  formState,
 }) => {
   const open = useDaumPostcodePopup();
 
@@ -30,26 +29,18 @@ const FormAddressInputContainer = ({
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
-    setZoneCodeHandler(data.zonecode);
-    field.onChange(fullAddress);
+    setValue('mainAddress', fullAddress);
+    setValue('postcode', data.zonecode);
   };
 
   const handleClick = () => {
     open({ onComplete: handleComplete });
   };
 
-  const {
-    field,
-    fieldState: { isDirty, error },
-  } = useController({
-    name: id,
-    control,
-    defaultValue: '',
-  });
-
   return (
     <Container>
       <TextInput
+        {...register(id)}
         readOnly
         withAsterisk={withAsterisk}
         w="40rem"
@@ -58,10 +49,9 @@ const FormAddressInputContainer = ({
         type={inputType}
         label={name}
         placeholder={placeholder}
-        value={field.value}
         autoComplete="off"
         onClick={handleClick}
-        error={error && isDirty ? error.message : null}
+        error={formState?.errors[id]?.message}
       />
     </Container>
   );

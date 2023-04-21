@@ -29,17 +29,13 @@ const validationSchema = z.object({
 
 // SignIn Component
 const SignIn = () => {
-  const setUsers = useSetRecoilState(userState);
+  const setUser = useSetRecoilState(userState);
 
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const {
-    handleSubmit,
-    control,
-    trigger,
-    formState: { isValid },
-  } = useForm({
+  // { isValid, errors, isDirty }
+  const { handleSubmit, register, formState } = useForm({
     resolver: zodResolver(validationSchema),
     defaultValues: {
       email: '',
@@ -54,8 +50,8 @@ const SignIn = () => {
         password: data.password,
       });
 
-      setUsers({ ...response.data });
-      console.log(response.data); // 서버 응답을 출력
+      console.log('SignIn', response.data); // 서버 응답을 출력
+      setUser({ ...response.data });
 
       notifications.show({
         color: 'blue',
@@ -68,7 +64,7 @@ const SignIn = () => {
       if (state) {
         navigate(state);
       } else {
-        navigate('/signup');
+        navigate('/');
       }
     } catch (error) {
       notifications.show({
@@ -114,24 +110,23 @@ const SignIn = () => {
           alt="loginPageLogoImage"
         />
       </Title>
-      <form noValidate>
+      <form noValidate onSubmit={handleSubmit(handleLogin)}>
         <FormInputContainer
           inputType="text"
           id="email"
           name="이메일 주소"
           placeholder="예) fenb@fenb.com"
-          control={control}
-          trigger={trigger}
+          register={register}
+          formState={formState}
         />
-        <FormInputContainer inputType="password" id="password" name="비밀번호" control={control} trigger={trigger} />
-        <Button
-          w="40rem"
-          h="5.2rem"
-          p="0"
-          color={!isValid ? 'gray' : 'dark'}
-          radius="md"
-          disabled={!isValid}
-          onClick={handleSubmit(handleLogin)}>
+        <FormInputContainer
+          inputType="password"
+          id="password"
+          name="비밀번호"
+          register={register}
+          formState={formState}
+        />
+        <Button type="submit" w="40rem" h="5.2rem" p="0" color="dark" radius="md">
           로그인
         </Button>
         <Center mt="2rem">
