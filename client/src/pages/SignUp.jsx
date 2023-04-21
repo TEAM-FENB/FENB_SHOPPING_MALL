@@ -160,7 +160,6 @@ const SignUp = () => {
           id="postcode"
           name="우편번호"
           control={control}
-          trigger={trigger}
           zoneCode={zoneCode}
         />
         <Button

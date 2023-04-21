@@ -2,7 +2,6 @@ import React from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { useController } from 'react-hook-form';
 import { TextInput, Container } from '@mantine/core';
-// import { debounce } from 'lodash';
 
 // AddressInputContainer Component
 const FormAddressInputContainer = ({
@@ -48,53 +47,6 @@ const FormAddressInputContainer = ({
     defaultValue: '',
   });
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // const checkValidation = React.useCallback(
-  //   debounce(() => {
-  //     trigger(id);
-
-  //     if (id === 'password' && isDirty) trigger('confirmPassword');
-  //   }, 300),
-  //   [isDirty]
-  // );
-
-  // const handleChange = e => {
-  // if (inputType === 'tel') {
-  //   const phoneNumber = e.target.value;
-  //   const phoneNumberWithHyphens = phoneNumber.replace(/\D/g, '').replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
-
-  //   field.onChange(phoneNumberWithHyphens);
-  // } else if (inputType !== 'tel') {
-  //   field.onChange(e);
-  // }
-  // field.onChange(e);
-  // trigger(id);
-  // console.log('formAddressInput');
-  // checkValidation();
-  // };
-
-  // const handleAddress = data => {
-  //   let fullAddress = data.address; // 최종 주소 변수
-  //   let extraAddress = ''; // 조합형 주소 변수
-
-  //   // 기본 주소가 도로명 타입일때 조합한다.
-  //   if (data.addressType === 'R') {
-  //     // 법정동명이 있을 경우 추가한다.
-  //     if (data.bname !== '') {
-  //       extraAddress += data.bname;
-  //     }
-  //     // 건물명이 있을 경우 추가한다.
-  //     if (data.buildingName !== '') {
-  //       extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-  //     }
-  //     // 조합형 주소를 만든다.
-  //     fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-  //   }
-
-  //   field.onChange(fullAddress);
-  //   // checkValidation();
-  // };
-
   return (
     <Container>
       <TextInput
@@ -102,14 +54,12 @@ const FormAddressInputContainer = ({
         withAsterisk={withAsterisk}
         w="40rem"
         h="3.8rem"
-        // size="xl"
         mb="3.5rem"
         type={inputType}
         label={name}
         placeholder={placeholder}
         value={field.value}
         autoComplete="off"
-        // onChange={handleChange}
         onClick={handleClick}
         error={error && isDirty ? error.message : null}
       />
