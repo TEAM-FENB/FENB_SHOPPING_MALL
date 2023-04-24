@@ -99,6 +99,7 @@ const SignIn = () => {
       </Title>
       <form noValidate onSubmit={handleSubmit(handleLogin)}>
         <FormInput
+        <FormInput
           inputType="text"
           id="email"
           name="이메일 주소"
@@ -106,6 +107,7 @@ const SignIn = () => {
           register={register}
           formState={formState}
         />
+        <FormInput inputType="password" id="password" name="비밀번호" register={register} formState={formState} />
         <FormInput inputType="password" id="password" name="비밀번호" register={register} formState={formState} />
         <Button type="submit" w="40rem" h="5.2rem" p="0" color="dark" radius="md">
           로그인
