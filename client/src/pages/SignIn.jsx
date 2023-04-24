@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { FormInputContainer } from '../components';
+import { FormInput } from '../components';
 import { userState } from '../recoil/atoms';
 
 // Styled Link
@@ -114,7 +114,7 @@ const SignIn = () => {
         />
       </Title>
       <form noValidate onSubmit={handleSubmit(handleLogin)}>
-        <FormInputContainer
+        <FormInput
           inputType="text"
           id="email"
           name="이메일 주소"
@@ -122,13 +122,7 @@ const SignIn = () => {
           register={register}
           formState={formState}
         />
-        <FormInputContainer
-          inputType="password"
-          id="password"
-          name="비밀번호"
-          register={register}
-          formState={formState}
-        />
+        <FormInput inputType="password" id="password" name="비밀번호" register={register} formState={formState} />
         <Button type="submit" w="40rem" h="5.2rem" p="0" color="dark" radius="md">
           로그인
         </Button>
