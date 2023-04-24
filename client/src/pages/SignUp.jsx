@@ -2,10 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import { Button, Stack, Title, Checkbox, Center } from '@mantine/core';
-import styled from '@emotion/styled';
-import { Button, Stack, Title, Checkbox, Center } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { Link, useNavigate } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,9 +27,6 @@ const SignUp = () => {
     resolver: zodResolver(signupSchema),
   });
 
-  // 삽질 결과: 서버에서 뭘 안주면 나는 보내는 거 성공하고
-  // 서버도 등록은 완료... 하지만 resoponse 받은게 없어서 나는 응답에 갇힘...
-  // 뭐라도 줘야할듯.. 그리고 준다면 나는 뭘 처리하지?? 흠..
   const handleSignUp = async data => {
     try {
       const response = await axios.post('/api/auth/signup', {
@@ -69,7 +63,6 @@ const SignUp = () => {
     <Stack
       align="center"
       h="90rem"
-      h="90rem"
       p="0"
       m="0"
       sx={{
@@ -94,7 +87,6 @@ const SignUp = () => {
       </Title>
       <form noValidate onSubmit={handleSubmit(handleSignUp)}>
         <FormEmailInput
-        <FormEmailInput
           inputType="text"
           withAsterisk
           id="email"
@@ -104,7 +96,6 @@ const SignUp = () => {
           formState={formState}
         />
         <FormInput
-        <FormInput
           inputType="text"
           withAsterisk
           id="name"
@@ -113,7 +104,6 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-        <FormPhoneInput
         <FormPhoneInput
           inputType="tel"
           withAsterisk
@@ -126,7 +116,6 @@ const SignUp = () => {
           formState={formState}
         />
         <FormInput
-        <FormInput
           inputType="password"
           withAsterisk
           id="password"
@@ -135,7 +124,6 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-        <FormInput
         <FormInput
           inputType="password"
           withAsterisk
@@ -163,11 +151,7 @@ const SignUp = () => {
           formState={formState}
         />
         <FormInput
-        <FormInput
           inputType="text"
-          id="detailAddress"
-          name="상세주소"
-          placeholder="상세 주소를 입력하세요."
           id="detailAddress"
           name="상세주소"
           placeholder="상세 주소를 입력하세요."
@@ -186,10 +170,6 @@ const SignUp = () => {
         <Button type="submit" w="40rem" h="5.2rem" p="0" color="dark" radius="md">
           가입하기
         </Button>
-        <Center mt="2rem">
-          회원이신가요?
-          <SignInLink to={'/signin'}>로그인</SignInLink>
-        </Center>
         <Center mt="2rem">
           회원이신가요?
           <SignInLink to={'/signin'}>로그인</SignInLink>
