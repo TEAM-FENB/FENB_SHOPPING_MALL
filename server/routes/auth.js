@@ -54,8 +54,6 @@ router.post("/signup", (req, res) => {
     detailAddress,
     postcode,
   });
-  // kkw 추가
-  res.send({ email });
 });
 
 router.post("/signup/check", (req, res) => {
