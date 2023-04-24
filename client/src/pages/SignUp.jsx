@@ -1,17 +1,23 @@
 import React from 'react';
 import axios from 'axios';
-import { Button, Stack, Title } from '@mantine/core';
+import styled from '@emotion/styled';
+import { Button, Stack, Title, Checkbox, Center } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import {
-  FormInputContainer,
-  FormAddressInputContainer,
-  FormZoneCodeInputContainer,
-  FormEmailInputContainer,
-} from '../components';
+import { FormInput, FormAddressInput, FormZoneCodeInput, FormEmailInput, FormPhoneInput } from '../components';
+
+// Styled Link
+const SignInLink = styled(Link)`
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: 700;
+  &:hover {
+    color: blue;
+  }
+`;
 
 // zod Validation
 const validationSchema = z
@@ -25,6 +31,9 @@ const validationSchema = z
     mainAddress: z.string(),
     detailAddress: z.string(),
     postcode: z.string(),
+    terms: z.literal(true, {
+      errorMap: () => ({ message: '이용 약관에 동의해 주세요' }),
+    }),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: '패스워드가 일치하지 않습니다.',
@@ -50,10 +59,12 @@ const SignUp = () => {
     },
   });
 
+  // 삽질 결과: 서버에서 뭘 안주면 나는 보내는 거 성공하고
+  // 서버도 등록은 완료... 하지만 resoponse 받은게 없어서 나는 응답에 갇힘...
+  // 뭐라도 줘야할듯.. 그리고 준다면 나는 뭘 처리하지?? 흠..
   const handleSignUp = async data => {
     try {
       console.log(data);
-
       const response = await axios.post('/api/auth/signup', {
         email: data.email,
         name: data.name,
@@ -63,7 +74,17 @@ const SignUp = () => {
         detailAddress: data.detailAddress,
         postcode: data.postcode,
       });
-      console.log('SignUp post 완료', response); // 서버 응답을 출력
+
+      console.log(response.data); // 임시
+
+      notifications.show({
+        color: 'blue',
+        autoClose: 2000,
+        title: '알림',
+        message: '회원가입이 완료되었습니다.',
+        sx: { div: { fontSize: '1.5rem' } },
+      });
+
       navigate('/SignIn');
     } catch (error) {
       notifications.show({
@@ -79,7 +100,7 @@ const SignUp = () => {
   return (
     <Stack
       align="center"
-      h="75.5rem"
+      h="90rem"
       p="0"
       m="0"
       sx={{
@@ -103,7 +124,7 @@ const SignUp = () => {
         회원 가입
       </Title>
       <form noValidate onSubmit={handleSubmit(handleSignUp)}>
-        <FormEmailInputContainer
+        <FormEmailInput
           inputType="text"
           withAsterisk
           id="email"
@@ -112,7 +133,7 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-        <FormInputContainer
+        <FormInput
           inputType="text"
           withAsterisk
           id="name"
@@ -121,16 +142,17 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-        <FormInputContainer
+        <FormPhoneInput
           inputType="tel"
           withAsterisk
           id="phone"
           name="휴대전화번호"
           placeholder="예) 01012345678"
+          setValue={setValue}
           register={register}
           formState={formState}
         />
-        <FormInputContainer
+        <FormInput
           inputType="password"
           withAsterisk
           id="password"
@@ -139,7 +161,7 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-        <FormInputContainer
+        <FormInput
           inputType="password"
           withAsterisk
           id="confirmPassword"
@@ -148,27 +170,40 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-
-        <FormAddressInputContainer
+        <FormAddressInput
           inputType="text"
           id="mainAddress"
           name="주소"
-          placeholder="이곳을 클릭해주세요!!"
+          placeholder="이곳을 클릭하세요."
           setValue={setValue}
           register={register}
           formState={formState}
         />
-
-        <FormZoneCodeInputContainer
+        <FormInput
           inputType="text"
-          id="postcode"
-          name="우편번호"
+          id="detailAddress"
+          name="상세주소"
+          placeholder="상세 주소를 입력하세요."
           register={register}
           formState={formState}
+        />
+        <FormZoneCodeInput inputType="text" id="postcode" name="우편번호" register={register} formState={formState} />
+        <Checkbox
+          label="이용 약관에 동의 합니다."
+          size="xl"
+          color="dark"
+          mb="3.5rem"
+          sx={{ input: { border: '0.0625rem solid #ced4da' } }}
+          {...register('terms')}
+          error={formState.errors?.terms?.message}
         />
         <Button type="submit" w="40rem" h="5.2rem" p="0" color="dark" radius="md">
           가입하기
         </Button>
+        <Center mt="2rem">
+          회원이신가요?
+          <SignInLink to={'/signin'}>로그인</SignInLink>
+        </Center>
       </form>
     </Stack>
   );

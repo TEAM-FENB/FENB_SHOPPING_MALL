@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { TextInput, Container } from '@mantine/core';
+import { TextInput } from '@mantine/core';
 
-// AddressInputContainer Component
-const FormAddressInputContainer = ({
+// FormAddressInput Component
+const FormAddressInput = ({
   inputType,
   id,
   name,
@@ -38,23 +38,21 @@ const FormAddressInputContainer = ({
   };
 
   return (
-    <Container>
-      <TextInput
-        {...register(id)}
-        readOnly
-        withAsterisk={withAsterisk}
-        w="40rem"
-        h="3.8rem"
-        mb="3.5rem"
-        type={inputType}
-        label={name}
-        placeholder={placeholder}
-        autoComplete="off"
-        onClick={handleClick}
-        error={formState?.errors[id]?.message}
-      />
-    </Container>
+    <TextInput
+      {...register(id)}
+      readOnly
+      withAsterisk={withAsterisk}
+      w="40rem"
+      h="3.8rem"
+      mb="3.5rem"
+      type={inputType}
+      label={name}
+      placeholder={placeholder}
+      autoComplete="off"
+      onClick={handleClick}
+      error={formState?.errors[id]?.message}
+    />
   );
 };
 
-export default FormAddressInputContainer;
+export default FormAddressInput;

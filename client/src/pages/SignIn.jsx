@@ -8,7 +8,8 @@ import { useSetRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { FormInputContainer } from '../components';
+import { useQueryClient } from '@tanstack/react-query';
+import { FormInput } from '../components';
 import { userState } from '../recoil/atoms';
 
 // Styled Link
@@ -29,7 +30,7 @@ const validationSchema = z.object({
 
 // SignIn Component
 const SignIn = () => {
-  const setUser = useSetRecoilState(userState);
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -51,7 +52,6 @@ const SignIn = () => {
       });
 
       console.log('SignIn', response.data); // 서버 응답을 출력
-      setUser({ ...response.data });
 
       notifications.show({
         color: 'blue',
@@ -60,6 +60,9 @@ const SignIn = () => {
         message: `${response.data.username}님 환영합니다.`,
         sx: { div: { fontSize: '1.5rem' } },
       });
+
+      console.log(response.data); // 서버 응답을 출력
+      queryClient.removeQueries({ queryKey: ['user'] });
 
       if (state) {
         navigate(state);
@@ -111,7 +114,7 @@ const SignIn = () => {
         />
       </Title>
       <form noValidate onSubmit={handleSubmit(handleLogin)}>
-        <FormInputContainer
+        <FormInput
           inputType="text"
           id="email"
           name="이메일 주소"
@@ -119,13 +122,7 @@ const SignIn = () => {
           register={register}
           formState={formState}
         />
-        <FormInputContainer
-          inputType="password"
-          id="password"
-          name="비밀번호"
-          register={register}
-          formState={formState}
-        />
+        <FormInput inputType="password" id="password" name="비밀번호" register={register} formState={formState} />
         <Button type="submit" w="40rem" h="5.2rem" p="0" color="dark" radius="md">
           로그인
         </Button>
