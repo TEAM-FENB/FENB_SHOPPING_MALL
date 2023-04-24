@@ -63,6 +63,7 @@ const SignIn = () => {
 
       console.log(response.data); // 서버 응답을 출력
       queryClient.removeQueries({ queryKey: ['user'] });
+      queryClient.removeQueries({ queryKey: ['user'] });
 
       if (state) {
         navigate(state);
