@@ -4,13 +4,11 @@ import styled from '@emotion/styled';
 import { Button, Image, Stack, Center, Title } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useQueryClient } from '@tanstack/react-query';
 import { FormInput } from '../components';
-import { userState } from '../recoil/atoms';
+import { signinSchema } from '../schema';
 
 // Styled Link
 const SignUpLink = styled(Link)`
@@ -22,12 +20,6 @@ const SignUpLink = styled(Link)`
   }
 `;
 
-// zod Validation
-const validationSchema = z.object({
-  email: z.string().email({ message: '이메일 주소를 정확히 입력해주세요.' }),
-  password: z.string().regex(/^[A-Za-z0-9]{6,12}$/, { message: '영문 또는 숫자를 6~12자 입력하세요.' }),
-});
-
 // SignIn Component
 const SignIn = () => {
   const queryClient = useQueryClient();
@@ -35,13 +27,8 @@ const SignIn = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  // { isValid, errors, isDirty }
   const { handleSubmit, register, formState } = useForm({
-    resolver: zodResolver(validationSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    resolver: zodResolver(signinSchema),
   });
 
   const handleLogin = async data => {
@@ -51,8 +38,6 @@ const SignIn = () => {
         password: data.password,
       });
 
-      console.log('SignIn', response.data); // 서버 응답을 출력
-
       notifications.show({
         color: 'blue',
         autoClose: 2000,
@@ -61,8 +46,6 @@ const SignIn = () => {
         sx: { div: { fontSize: '1.5rem' } },
       });
 
-      console.log(response.data); // 서버 응답을 출력
-      queryClient.removeQueries({ queryKey: ['user'] });
       queryClient.removeQueries({ queryKey: ['user'] });
 
       if (state) {
@@ -75,7 +58,7 @@ const SignIn = () => {
         color: 'red',
         autoClose: 2000,
         title: '알림',
-        message: error.response.data.error ? error.response.data.error : error.message,
+        message: error.response.data.message ? error.response.data.message : error.message,
         sx: { div: { fontSize: '1.5rem' } },
       });
     }

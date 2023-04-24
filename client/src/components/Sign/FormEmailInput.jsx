@@ -9,7 +9,7 @@ const FormEmailInputContainer = ({ inputType, id, name, placeholder, withAsteris
 
   const checkEmailDuplicate = async stremail => {
     try {
-      const response = await axios.post('/api/auth/signup/check', {
+      const response = await axios.post('/api/auth/signup/email', {
         email: stremail,
       });
 
@@ -25,15 +25,15 @@ const FormEmailInputContainer = ({ inputType, id, name, placeholder, withAsteris
 
   return (
     <TextInput
-      {...register(id)}
-      withAsterisk={withAsterisk}
-      w="40rem"
-      h="3.8rem"
-      mb="3.5rem"
       type={inputType}
       label={name}
       placeholder={placeholder}
+      withAsterisk={withAsterisk}
       autoComplete="off"
+      w="40rem"
+      h="3.8rem"
+      mb="3.5rem"
+      {...register(id)}
       onBlur={e => checkEmailDuplicate(e.target.value)}
       error={formState?.errors[id]?.message || duplicateEmailError}
     />
