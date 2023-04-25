@@ -9,7 +9,7 @@ let users = [
     phone: "010-1234-5678",
     addresses: [
       {
-        id: 1,
+        id: uuidv4(),
         name: "이동규",
         phone: "010-1234-5678",
         mainAddress: "서울시 동작구 12길 28",
@@ -18,7 +18,7 @@ let users = [
         isDefault: true,
       },
       {
-        id: 2,
+        id: uuidv4(),
         name: "최수민",
         phone: "010-3456-5678",
         mainAddress: "서울시 강남구 역삼로 15길 7",
@@ -27,7 +27,7 @@ let users = [
         isDefault: false,
       },
       {
-        id: 3,
+        id: uuidv4(),
         name: "김경재",
         phone: "010-0987-5555",
         mainAddress: "서울시 강남구 강남대로 364(역삼동)",
@@ -57,15 +57,8 @@ const defaultAddress = {
   isDefault: true,
 };
 
-const createUser = ({
-  email,
-  name,
-  phone,
-  password,
-  mainAddress,
-  detailAddress,
-  postcode,
-}) => {
+// 신규 회원가입 유저 정보 추가
+const createUser = ({ email, name, phone, password, ...address }) => {
   users = [
     {
       ...defaultUser,
@@ -88,6 +81,13 @@ const createUser = ({
   ];
 };
 
+const hasAddress = (email, id) =>
+  users.some(
+    (user) =>
+      user.email === email &&
+      user.addresses.some((address) => address.id === id)
+  );
+
 // 추가
 const addAddress = (email, newAddress) => {
   const id = uuidv4();
@@ -105,7 +105,7 @@ const addAddress = (email, newAddress) => {
   return id;
 };
 
-// 기본 배송지 변경
+// 기본 배송지 변경 + 기본 배송지는 배열 맨앞으로 이동
 const changeDefaultAddress = (email, addressId) =>
   (users = users.map((user) => {
     if (user.email === email) {
@@ -117,7 +117,7 @@ const changeDefaultAddress = (email, addressId) =>
       return {
         ...user,
         addresses: [
-          ...changedAddress.filter((address) => address.id === addressId),
+          ...changedAddress.find((address) => address.id === addressId),
           ...changedAddress.filter((address) => address.id !== addressId),
         ],
       };
@@ -126,6 +126,7 @@ const changeDefaultAddress = (email, addressId) =>
     return user;
   }));
 
+// 배송지 수정
 const editAddress = (email, id, newAddress) => {
   users = users.map((user) =>
     user.email === email
@@ -139,7 +140,17 @@ const editAddress = (email, id, newAddress) => {
   );
 };
 
-const getUsers = () => users;
+// 배송지 삭제
+const deleteAddress = (email, id) => {
+  users = users.map((user) =>
+    user.email === email
+      ? {
+          ...user,
+          addresses: user.addresses.filter((address) => address.id !== id),
+        }
+      : user
+  );
+};
 
 const getUser = (email) => users.find((user) => user.email === email);
 
@@ -156,10 +167,11 @@ module.exports = {
   createUser,
   addAddress,
   hasUser,
-  getUsers,
+  hasAddress,
   getUser,
   confirmUser,
   checkDuplicateEmail,
   changeDefaultAddress,
   editAddress,
+  deleteAddress,
 };
