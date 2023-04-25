@@ -15,9 +15,6 @@ const signupSchema = signinSchema
       mainAddress: z.string(),
       detailAddress: z.string(),
       postcode: z.string(),
-      // terms: z.literal(true, {
-      //   errorMap: () => ({ message: '이용 약관에 동의해 주세요' }),
-      // }),
     })
   )
   .refine(data => data.password === data.confirmPassword, {

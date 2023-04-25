@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import { Button, Stack, Title, Center } from '@mantine/core';
+import { useMantineColorScheme, Button, Stack, Title, Center } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -21,6 +21,8 @@ const SignInLink = styled(Link)`
 
 // SignUp Component
 const SignUp = () => {
+  const { colorScheme } = useMantineColorScheme();
+
   const navigate = useNavigate();
 
   const { handleSubmit, register, formState, trigger, setValue } = useForm({
@@ -158,33 +160,7 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-        {/* <Checkbox.Group
-          defaultValue={['react']}
-          label="Select your favorite frameworks/libraries"
-          description="This is anonymous"
-          withAsterisk>
-          <Group mt="xs">
-            <Checkbox value="react" label="React" />
-            <Checkbox value="svelte" label="Svelte" />
-            <Checkbox value="ng" label="Angular" />
-            <Checkbox value="vue" label="Vue" />
-          </Group>
-        </Checkbox.Group> */}
-        {/* <Checkbox.Group
-          sx={{ input: { border: '0.0625rem solid #ced4da' } }}
-          size="xl"
-          mb="3.5rem"
-          label="이용 약관"
-          withAsterisk>
-          <Checkbox
-            color="dark"
-            value=""
-            label="이용 약관에 동의 합니다."
-            {...register('terms')}
-            error={formState.errors?.terms?.message}
-          />
-        </Checkbox.Group> */}
-        <Button type="submit" w="40rem" h="5.2rem" p="0" color="dark" radius="md">
+        <Button type="submit" w="40rem" h="5.2rem" p="0" color={colorScheme === 'dark' ? 'gray.6' : 'dark'} radius="md">
           가입하기
         </Button>
         <Center mt="2rem">

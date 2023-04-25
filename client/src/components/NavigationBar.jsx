@@ -104,36 +104,40 @@ const MainList = () => {
   );
 };
 
-const BottomList = () => (
-  <Navbar.Section grow mt="md" w="1200px" maw="1200px" m="auto" h="auto">
-    <Flex justify="space-between">
-      <Tabs
-        color="dark"
-        sx={{
-          'button[data-active]': {
-            fontWeight: 'bold',
-            borderWidth: '.2rem',
-          },
-        }}>
-        <Tabs.List sx={{ border: 'none' }}>
-          {categoryList.map(({ kr, en }) => (
-            <Link to={PATH.CATEGORY} key={en}>
-              <Tabs.Tab value={en} fz="1.6rem">
-                {kr}
-              </Tabs.Tab>
-            </Link>
-          ))}
-        </Tabs.List>
-      </Tabs>
-    </Flex>
-  </Navbar.Section>
-);
+const BottomList = () => {
+  const { colorScheme } = useMantineColorScheme();
+
+  return (
+    <Navbar.Section grow mt="md" w="1200px" maw="1200px" m="auto" h="auto">
+      <Flex justify="space-between">
+        <Tabs
+          color={colorScheme === 'dark' ? 'gray.0' : 'dark'}
+          sx={{
+            'button[data-active]': {
+              fontWeight: 'bold',
+              borderWidth: '.2rem',
+            },
+          }}>
+          <Tabs.List sx={{ border: 'none' }}>
+            {categoryList.map(({ kr, en }) => (
+              <Link to={PATH.CATEGORY} key={en}>
+                <Tabs.Tab value={en} fz="1.6rem">
+                  {kr}
+                </Tabs.Tab>
+              </Link>
+            ))}
+          </Tabs.List>
+        </Tabs>
+      </Flex>
+    </Navbar.Section>
+  );
+};
 
 const NavigationBar = () => {
   const { colorScheme } = useMantineColorScheme();
 
   return (
-    <Navbar height="auto" position={{ top: 0, left: 0, border: '1px solid #ced4da' }}>
+    <Navbar height="auto" position={{ top: 0, left: 0, borderBottom: '1px solid #ced4da' }}>
       <Group position="apart" spacing={0} w="120rem" m="auto">
         <Link to={PATH.MAIN}>
           {colorScheme === 'dark' ? (

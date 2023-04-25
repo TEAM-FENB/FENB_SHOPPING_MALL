@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { TextInput, Button } from '@mantine/core';
+import { useMantineColorScheme, TextInput, Button } from '@mantine/core';
 
 // FormZoneCodeInput Component
 const FormZoneCodeInput = ({
@@ -15,6 +15,7 @@ const FormZoneCodeInput = ({
 }) => {
   const width = 500;
   const height = 600;
+  const { colorScheme } = useMantineColorScheme();
 
   const open = useDaumPostcodePopup();
 
@@ -53,7 +54,14 @@ const FormZoneCodeInput = ({
       autoComplete="off"
       readOnly
       rightSection={
-        <Button size="xs" type="button" p="0" color="dark" radius="md" onClick={handleClick}>
+        <Button
+          size="xs"
+          type="button"
+          p="0"
+          m="0 4rem 0 0"
+          color={colorScheme === 'dark' ? 'gray.6' : 'dark'}
+          radius="md"
+          onClick={handleClick}>
           주소찾기
         </Button>
       }
