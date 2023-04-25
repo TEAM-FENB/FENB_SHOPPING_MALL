@@ -67,11 +67,9 @@ const TopList = () => {
           size="xl"
           onClick={() => toggleColorScheme()}
           sx={theme => ({
-            // backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : null,
             color: theme.colorScheme === 'dark' ? theme.colors.yellow[4] : theme.colors.dark[6],
           })}>
           {colorScheme === 'dark' ? <TbSunFilled size="2.8rem" /> : <TbMoonFilled size="2.8rem" />}
-          {/* <TbMoonFilled size="2.8rem" color="black" /> */}
         </ActionIcon>
       </Flex>
     </Navbar.Section>
@@ -131,19 +129,27 @@ const BottomList = () => (
   </Navbar.Section>
 );
 
-const NavigationBar = () => (
-  <Navbar height="auto" position={{ top: 0, left: 0, border: '1px solid #ced4da' }}>
-    <Group position="apart" spacing={0} w="120rem" m="auto">
-      <Link to={PATH.MAIN}>
-        <Image width="10rem" pl="1rem" src="images/logo/main.svg" alt="486" />
-      </Link>
-      <Stack>
-        <TopList />
-        <MainList />
-      </Stack>
-    </Group>
-    <BottomList />
-  </Navbar>
-);
+const NavigationBar = () => {
+  const { colorScheme } = useMantineColorScheme();
+
+  return (
+    <Navbar height="auto" position={{ top: 0, left: 0, border: '1px solid #ced4da' }}>
+      <Group position="apart" spacing={0} w="120rem" m="auto">
+        <Link to={PATH.MAIN}>
+          {colorScheme === 'dark' ? (
+            <Image width="10rem" pl="1rem" src="images/logo/darkmodeMainLogo.svg" alt="486" />
+          ) : (
+            <Image width="10rem" pl="1rem" src="images/logo/main.svg" alt="486" />
+          )}
+        </Link>
+        <Stack>
+          <TopList />
+          <MainList />
+        </Stack>
+      </Group>
+      <BottomList />
+    </Navbar>
+  );
+};
 
 export default NavigationBar;

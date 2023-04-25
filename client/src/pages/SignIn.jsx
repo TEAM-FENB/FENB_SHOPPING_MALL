@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import { Button, Image, Stack, Center, Title } from '@mantine/core';
+import { useMantineColorScheme, Button, Image, Stack, Center, Title } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -22,6 +22,7 @@ const SignUpLink = styled(Link)`
 
 // SignIn Component
 const SignIn = () => {
+  const { colorScheme } = useMantineColorScheme();
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
@@ -88,14 +89,25 @@ const SignIn = () => {
         },
       }}>
       <Title order={2}>
-        <Image
-          width="40rem"
-          mb="2rem"
-          maw="60rem"
-          mx="auto"
-          src="images/logo/loginPageLogo.svg"
-          alt="loginPageLogoImage"
-        />
+        {colorScheme === 'dark' ? (
+          <Image
+            width="40rem"
+            mb="2rem"
+            maw="60rem"
+            mx="auto"
+            src="images/logo/darkmodeLoginPageLogo.svg"
+            alt="darkmodeLoginPageLogoImage"
+          />
+        ) : (
+          <Image
+            width="40rem"
+            mb="2rem"
+            maw="60rem"
+            mx="auto"
+            src="images/logo/loginPageLogo.svg"
+            alt="loginPageLogoImage"
+          />
+        )}
       </Title>
       <form noValidate onSubmit={handleSubmit(handleLogin)}>
         <FormInput
