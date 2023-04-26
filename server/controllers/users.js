@@ -10,8 +10,8 @@ let users = [
     addresses: [
       {
         id: uuidv4(),
-        name: "이동규",
-        phone: "010-1234-5678",
+        recipient: "이동규",
+        recipientPhone: "010-1234-5678",
         mainAddress: "서울시 동작구 12길 28",
         detailAddress: "235호",
         postcode: "120156",
@@ -19,8 +19,8 @@ let users = [
       },
       {
         id: uuidv4(),
-        name: "최수민",
-        phone: "010-3456-5678",
+        recipient: "최수민",
+        recipientPhone: "010-3456-5678",
         mainAddress: "서울시 강남구 역삼로 15길 7",
         detailAddress: "휴앤아이빌 309호",
         postcode: "098762",
@@ -28,8 +28,8 @@ let users = [
       },
       {
         id: uuidv4(),
-        name: "김경재",
-        phone: "010-0987-5555",
+        recipient: "김경재",
+        recipientPhone: "010-0987-5555",
         mainAddress: "서울시 강남구 강남대로 364(역삼동)",
         detailAddress: "미왕빌딩 10층 E강의실",
         postcode: "348523",
