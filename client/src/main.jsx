@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Notifications } from '@mantine/notifications';
 
 import App from './App';
 import GlobalStyle from './styles/Global.style';
@@ -17,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <ReactQueryDevtools />
         <GlobalStyle />
         <App />
-        <Notifications position="top-center" />
       </QueryClientProvider>
     </RecoilRoot>
   </React.StrictMode>

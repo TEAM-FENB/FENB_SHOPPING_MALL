@@ -1,131 +1,70 @@
-### 유저 정보 가져오기
-GET http://localhost:8000/api/users
+GET http://localhost:8000/
 
-### 회원가입 확인
-POST http://localhost:8000/api/auth/signup
-content-type: application/json
+###
 
-{
-  "email" : "test1@test.com",
-  "name": "이동규",
-  "phone": "010-1234-5678",
-  "password": "test123",
-  "mainAddress": "",
-  "detailAddress": "",
-  "postcode": ""
-}
-
-### 상품리스트 가져오기
 GET http://localhost:8000/api/products
 
-### 특정 유저(accessToken)의 정보 가져오기(패스워드 제외)
-GET http://localhost:8000/api/users/me
+###
 
-### 로그아웃
-GET http://localhost:8000/api/auth/signout
+GET http://localhost:8000/api/users
 
-### 네비게이션에 나열할 카테고리 리스트 가져오기
-GET http://localhost:8000/api/categories
+###
 
-### 특정 유저(accessToken)의 장바구니 데이터 가져오기
-GET http://localhost:8000/api/carts/me
-
-### 특정 유저(accessToken)의 관심상품 리스트 가져오기
-GET http://localhost:8000/api/favorites/me
-
-### 주문하기
-GET http://localhost:8000/api/order
-
-### 결제하기
-GET http://localhost:8000/api/order/pay
-
-### 캐러셀 가져오기
-GET http://localhost:8000/api/carousel
-
-### 로그인 유무 확인
-GET http://localhost:8000/api/auth/verify
-
-### 캐러셀 가져오기
-GET http://localhost:8000/api/carousel
-
-### 로그인 유무 확인
-GET http://localhost:8000/api/auth/verify
-
-### 특정 유저(accessToken)의 관심상품 추가/제거(관심상품 추가, 상품의 좋아요 개수 증가 / 관심상품 제거, 상품의 좋아요 개수 감소)
-POST http://localhost:8000/api/favorites/me
+PATCH http://localhost:8000/api/users/1
 content-type: application/json
 
-{ "id" : 1 }
+{ "favorite" : true }
 
-### 회원가입시 이메일 중복 확인
-POST http://localhost:8000/api/auth/signup/email
+###
+
+PATCH http://localhost:8000/api/users/1
 content-type: application/json
 
-// { "email" : "test@test.com" }
-{ "email" : "new@new.com" }
+{ "favorite" : false }
 
-### 회원가입 확인
-POST http://localhost:8000/api/auth/signup
+###
+
+POST http://localhost:8000/api/products
 content-type: application/json
 
 {
-  "email" : "test1@test.com",
-  "name": "이동규",
-  "phone": "010-1234-5678",
-  "password": "test123",
-  "mainAddress": "",
-  "detailAddress": "",
-  "postcode": ""
+  "product": { 
+    "brand": "addias",
+    "name": "air force",
+    "price": 200000,
+    "color": "white",
+    "description": "에어포스",
+    "gender": "unisex",
+    "category": "sneakers",
+    "imgURL": "/images/products/sneakers",
+    "dateOfManufacture": "2023-04-16"
+  },
+  "sizes": [
+    {"size": 230, "stock": 8},
+    {"size": 235, "stock": 11},
+    {"size": 240, "stock": 2},
+    {"size": 245, "stock": 3},
+    {"size": 250, "stock": 7},
+    {"size": 255, "stock": 1},
+    {"size": 260, "stock": 21},
+    {"size": 265, "stock": 1},
+    {"size": 270, "stock": 18},
+    {"size": 275, "stock": 0},
+    {"size": 280, "stock": 19},
+    {"size": 285, "stock": 0}
+  ]
 }
 
-### 회원가입 확인
-POST http://localhost:8000/api/auth/signup
-content-type: application/json
+###
 
-{
-  "email" : "test1@test.com",
-  "name": "이동규",
-  "phone": "010-1234-5678",
-  "password": "test123",
-  "mainAddress": "",
-  "detailAddress": "",
-  "postcode": ""
-}
-
-### 장바구니에 상품 추가
-POST http://localhost:8000/api/carts/me/3
-content-type: application/json
-
-// { "selectedSize" : 260, "quantity" : 1 }
-{ "selectedSize" : 230 }
-
-### 로그인 기능
 POST http://localhost:8000/api/auth/signin
 content-type: application/json
 
-{ "email": "test@test.com", "password": "test123"}
+{ "email": "test@test.com", "password": "test"}
 
-### 주소 추가
-POST http://localhost:8000/api/users/me/address
-content-type: application/json
+###
 
-{ "recipient": "최수민", "recipientPhone": "011-1234-5678", "mainAddress": "서울시 강남구", "detailAddress": "미왕빌딩 10층", "postcode": "123456"}
+# DELETE http://localhost:8000/api/todos/3
 
-### 장바구니 사이즈(고정), 수량 변경
-PATCH http://localhost:8000/api/carts/me/3
-content-type: application/json
-
-{ "quantity" : 6 }
-//{ "quantity" : 20 }
-
-### 기본 배송지 변경
-PATCH http://localhost:8000/api/users/me/address/6bc27060-9b9c-4f53-b20f-992dbf19dad5
-content-type: application/json
-
-{"postcode": "000000"}
-
-
-
-### 장바구니 특정 상품 삭제
-DELETE http://localhost:8000/api/carts/3
-content-type: application/json
+# ###
+# DELETE http://localhost:8000/api/todos?completed=true
