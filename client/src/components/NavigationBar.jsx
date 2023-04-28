@@ -132,12 +132,16 @@ const NavigationMenu = () => {
         <Menu.Item fz="1.6rem" fw="bold" closeMenuOnClick={false}>
           <SearchBar />
         </Menu.Item>
-        <Menu.Item fz="1.6rem" fw="bold" disabled={!verify}>
-          관심상품
+        <Menu.Item fz="1.6rem" fw="bold" disabled={!verify} icon={<BsFillSuitHeartFill size="2rem" color="tomato" />}>
+          <Link to={PATH.WISHLIST} state={pathname}>
+            관심상품
+          </Link>
         </Menu.Item>
-        <Menu.Item fz="1.6rem" fw="bold" disabled={!verify}>
-          장바구니
-        </Menu.Item>
+        <Link to={PATH.CART} state={pathname}>
+          <Menu.Item fz="1.6rem" fw="bold" disabled={!verify} icon={<SlHandbag size="2rem" />}>
+            장바구니
+          </Menu.Item>
+        </Link>
 
         <Menu.Divider />
 
