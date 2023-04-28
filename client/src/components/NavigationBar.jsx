@@ -123,14 +123,10 @@ const NavigationMenu = () => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        {verify && (
-          <>
-            <Menu.Label fz="1.6rem" fw="bold">
-              {user.username}님 환영합니다.
-            </Menu.Label>
-            <Menu.Divider />
-          </>
-        )}
+        <Menu.Label fz="1.6rem" fw="bold">
+          {verify ? `${user.username}님 환영합니다.` : '로그인이 필요합니다.'}
+        </Menu.Label>
+        <Menu.Divider />
 
         <Menu.Item fz="1.6rem" fw="bold" disabled={!verify} icon={<BsFillSuitHeartFill size="2rem" color="tomato" />}>
           <Link to={PATH.WISHLIST} state={pathname}>
