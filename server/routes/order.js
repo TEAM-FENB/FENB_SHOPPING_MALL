@@ -25,7 +25,7 @@ router.get('/coupons/:id', authCheck, (req, res) => {
   const id = +req.params.id;
   const { products } = getUserCart(email);
 
-  const { discountRate, discountPrice, minimumPrice } = getCoupon(email, id);
+  const { discountRate = 0, discountPrice = 0, minimumPrice = 0 } = getCoupon(email, id) ?? {};
 
   const totalPrice = products.reduce((accumulate, product) => accumulate + product.price * product.quantity, 0);
   const discountedTotalPrice = discountPrice ? totalPrice - discountPrice : totalPrice * (1 - discountRate / 100);
