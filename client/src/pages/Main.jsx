@@ -33,7 +33,14 @@ const MainCarousel = ({ modalOpen, setModalTitle }) => {
   };
 
   return (
-    <Container w="100%" maw="100%" pos="relative" bg={sideBackgroundColor}>
+    <Container
+      w="100%"
+      maw="100%"
+      pos="relative"
+      bg={sideBackgroundColor}
+      sx={{
+        transition: 'all .1s ',
+      }}>
       <Carousel
         mx="auto"
         maw="120rem"
