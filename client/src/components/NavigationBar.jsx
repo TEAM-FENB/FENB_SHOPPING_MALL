@@ -116,6 +116,10 @@ const NavigationMenu = () => {
     navigate(PATH.MAIN);
   };
 
+  const handleRedirectClick = (path, state) => {
+    navigate(path, { state });
+  };
+
   return (
     <Menu shadow="md" width="20rem" transitionProps={{ transition: 'rotate-right', duration: 150 }}>
       <Menu.Target>
@@ -128,16 +132,22 @@ const NavigationMenu = () => {
         </Menu.Label>
         <Menu.Divider />
 
-        <Menu.Item fz="1.6rem" fw="bold" disabled={!verify} icon={<BsFillSuitHeartFill size="2rem" color="tomato" />}>
-          <Link to={PATH.WISHLIST} state={pathname}>
-            관심상품
-          </Link>
+        <Menu.Item
+          fz="1.6rem"
+          fw="bold"
+          disabled={!verify}
+          icon={<BsFillSuitHeartFill size="2rem" color="tomato" />}
+          onClick={() => handleRedirectClick(PATH.WISHLIST, pathname)}>
+          관심상품
         </Menu.Item>
-        <Link to={PATH.CART} state={pathname}>
-          <Menu.Item fz="1.6rem" fw="bold" disabled={!verify} icon={<SlHandbag size="2rem" />}>
-            장바구니
-          </Menu.Item>
-        </Link>
+        <Menu.Item
+          fz="1.6rem"
+          fw="bold"
+          disabled={!verify}
+          icon={<SlHandbag size="2rem" />}
+          onClick={() => handleRedirectClick(PATH.CART, pathname)}>
+          장바구니
+        </Menu.Item>
 
         <Menu.Divider />
 
@@ -147,11 +157,13 @@ const NavigationMenu = () => {
           </Menu.Item>
         ) : (
           topList.map(({ kr, en }) => (
-            <Link key={en} to={PATH[en.toUpperCase()]} state={`${pathname}${search}`}>
-              <Menu.Item fz="1.6rem" fw="bold">
-                {kr}
-              </Menu.Item>
-            </Link>
+            <Menu.Item
+              key={en}
+              fz="1.6rem"
+              fw="bold"
+              onClick={() => handleRedirectClick(PATH[en.toUpperCase()], `${pathname}${search}`)}>
+              {kr}
+            </Menu.Item>
           ))
         )}
       </Menu.Dropdown>
