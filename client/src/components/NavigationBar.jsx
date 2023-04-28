@@ -13,6 +13,7 @@ import {
   Container,
   Menu,
   Avatar,
+  Tooltip,
 } from '@mantine/core';
 import { BiSearch } from 'react-icons/bi';
 import { SlHandbag } from 'react-icons/sl';
@@ -39,14 +40,16 @@ const DarkMode = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
   return (
-    <ActionIcon
-      size="xl"
-      onClick={() => toggleColorScheme()}
-      sx={theme => ({
-        color: theme.colorScheme === 'dark' ? theme.colors.yellow[4] : theme.colors.dark[6],
-      })}>
-      {colorScheme === 'dark' ? <TbSunFilled size="2.8rem" /> : <TbMoonFilled size="2.8rem" />}
-    </ActionIcon>
+    <Tooltip label="다크모드">
+      <ActionIcon
+        size="xl"
+        onClick={() => toggleColorScheme()}
+        sx={theme => ({
+          color: theme.colorScheme === 'dark' ? theme.colors.yellow[4] : theme.colors.dark[6],
+        })}>
+        {colorScheme === 'dark' ? <TbSunFilled size="2.8rem" /> : <TbMoonFilled size="2.8rem" />}
+      </ActionIcon>
+    </Tooltip>
   );
 };
 
@@ -129,9 +132,6 @@ const NavigationMenu = () => {
           </>
         )}
 
-        <Menu.Item fz="1.6rem" fw="bold" closeMenuOnClick={false}>
-          <SearchBar />
-        </Menu.Item>
         <Menu.Item fz="1.6rem" fw="bold" disabled={!verify} icon={<BsFillSuitHeartFill size="2rem" color="tomato" />}>
           <Link to={PATH.WISHLIST} state={pathname}>
             관심상품
@@ -225,14 +225,18 @@ const MainList = () => {
       <Flex justify="flex-end" align="center" gap="xl">
         <SearchBar />
         <Link to={PATH.WISHLIST} state={pathname}>
-          <ActionIcon size="xl">
-            <BsFillSuitHeartFill size="2.8rem" color="tomato" />
-          </ActionIcon>
+          <Tooltip label="관심상품">
+            <ActionIcon size="xl">
+              <BsFillSuitHeartFill size="2.8rem" color="tomato" />
+            </ActionIcon>
+          </Tooltip>
         </Link>
         <Link to={PATH.CART} state={pathname}>
-          <ActionIcon size="xl">
-            <SlHandbag size="2.8rem" />
-          </ActionIcon>
+          <Tooltip label="장바구니">
+            <ActionIcon size="xl">
+              <SlHandbag size="2.8rem" />
+            </ActionIcon>
+          </Tooltip>
         </Link>
       </Flex>
     </Navbar.Section>
@@ -299,6 +303,7 @@ const NavigationBar = () => {
           </MediaQuery>
           <MediaQuery largerThan={880} styles={{ display: 'none' }}>
             <Group>
+              <SearchBar />
               <NavigationMenu />
               <DarkMode />
             </Group>
