@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { getUserCart, removeAllCart } = require('../controllers/carts');
 const { changeStock } = require('../controllers/stocks');
-const { getHistory, addHistory } = require('../controllers/history');
+const { getLatestHistory, addHistory } = require('../controllers/history');
 const { getAddress } = require('../controllers/users');
 const { getCoupon, removeCoupon } = require('../controllers/coupons');
 const { cartStockCheck } = require('../middleware/stock');
@@ -22,7 +22,7 @@ router.get('/', authCheck, cartStockCheck, expireCoupon, (req, res) => {
 // 쿠폰 적용시 확인 용도
 router.get('/coupons/:id', authCheck, (req, res) => {
   const { email } = req.locals;
-  const id = +req.params.id;
+  const { id } = req.params;
   const { products } = getUserCart(email);
 
   const { discountRate = 0, discountPrice = 0, minimumPrice = 0 } = getCoupon(email, id) ?? {};
@@ -74,7 +74,7 @@ router.post('/pay', authCheck, cartStockCheck, expireCoupon, checkCoupon, (req, 
 // 결제 목록 확인
 router.get('/history', authCheck, (req, res) => {
   const { email } = req.locals;
-  const history = getHistory(email);
+  const history = getLatestHistory(email);
 
   res.send(history);
 });
