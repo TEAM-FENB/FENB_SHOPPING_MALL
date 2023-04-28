@@ -1,8 +1,8 @@
 let CarouselSlides = [
   {
     id: 1,
-    imgURL: 'https://via.placeholder.com/2560x960',
-    sideBackgroundColor: '#cccccc',
+    imgURL: 'http://localhost:8000/images/coupons//15percent.jpg',
+    sideBackgroundColor: '#FECBCA',
     alt: '15% 쿠폰 슬라이드',
   },
   {
