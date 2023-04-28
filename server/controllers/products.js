@@ -58,7 +58,7 @@ let products = [
     name: '나이키 알파플라이 2',
     price: 350000,
     color: 3,
-    imgURL: 'http://localhost:8000/images/nike/walking/nike_orange_male_walking_.png',
+    imgURL: 'http://localhost:8000/images/nike/walking/nike_orange_male_walking.png',
     description:
       '더욱 가볍게 돌아온 아디다스 울트라부스트와 함께 매 스텝이 날아오르는 역대급 러닝 에너지를 느껴보세요. 독보적인 분자 형태의 캡슐 디자인을 통해 탄생한 초경량 폼으로 기존의 부스트보다 가볍게 진화한 라이트 부스트 미드솔을 선보입니다. 달릴 때마다 에너지가 폭발하는 수백 개의 부스트 캡슐로 이제까지와는 차원이 다른 궁극의 쿠셔닝과 편안함을 제공합니다.',
     dateOfManufacture: new Date('2020-12'),
@@ -207,8 +207,8 @@ let products = [
     gender: 1,
     name: '뉴발 리바운드',
     price: 87000,
-    color: 5,
-    imgURL: 'http://localhost:8000/images/newBalance/slipper/newbal_white_female_slipper.png',
+    color: 10,
+    imgURL: 'http://localhost:8000/images/newBalance/slipper/newbal_beige_female_slipper.png',
     description: `NB 리바운드 FLIPFLOP / SD5601v2
       22년 많은 사랑을 받았던 SD5601 플립플랍이 V2로 버전업 되었습니다
       탄성쿠셔닝 기능성을 가진 소재가 사용되어 편안한 쿠셔닝 뿐만 아니라 보행 시 탄성이 추가되어 발의 피로감을 덜어줍니다.
@@ -356,6 +356,29 @@ let products = [
   },
   {
     id: 20,
+    favorites: 75,
+    brand: 5,
+    category: 1,
+    gender: 1,
+    name: '클래식',
+    price: 49000,
+    color: 12,
+    imgURL: 'http://localhost:8000/images/crocs/sandal/crocs_pink_female_sandal.png',
+    description: `참신하게. 자유롭게. 편안하게.
+     전 세계에 편안함의 혁명을 탄생시킨 아이코닉한 클로그! 활동성과 편안함으로 날이 갈수록 더욱 사랑에 빠지게 될 슈즈입니다. 크록스 클래식 클로그는 가벼운 무게의 Iconic Crocs Comfort™와 모두에게 어울리는 컬러가 특징이며 편안한 착용감을 지속적으로 선사합니다.
+     클래식 디테일
+     놀랍도록 가벼운 무게와 착용의 즐거움
+     물에 닿아도 안전한 소재와 물에 뜨는 가벼운 무게
+     통기성을 향상하고 물기와 먼지를 배출해주는 통풍구
+     간편한 세척과 빠른 건조
+     발을 단단히 고정시키는 피벗식 힐 스트랩
+     Jibbitz™ 참으로 맞춤형 장식 가능
+     Iconic Crocs Comfort™: 가벼움. 유연함. 360도의 편안함.`,
+    dateOfManufacture: new Date('2022-12'),
+    feature: '여성 샌달',
+  },
+  {
+    id: 21,
     favorites: 80,
     brand: 5,
     category: 1,
@@ -378,7 +401,7 @@ let products = [
     feature: '남성 샌달',
   },
   {
-    id: 21,
+    id: 22,
     favorites: 92,
     brand: 5,
     category: 1,
@@ -387,29 +410,6 @@ let products = [
     price: 49000,
     color: 3,
     imgURL: 'http://localhost:8000/images/crocs/sandal/crocs_orange_female_sandal.png',
-    description: `참신하게. 자유롭게. 편안하게.
-     전 세계에 편안함의 혁명을 탄생시킨 아이코닉한 클로그! 활동성과 편안함으로 날이 갈수록 더욱 사랑에 빠지게 될 슈즈입니다. 크록스 클래식 클로그는 가벼운 무게의 Iconic Crocs Comfort™와 모두에게 어울리는 컬러가 특징이며 편안한 착용감을 지속적으로 선사합니다.
-     클래식 디테일
-     놀랍도록 가벼운 무게와 착용의 즐거움
-     물에 닿아도 안전한 소재와 물에 뜨는 가벼운 무게
-     통기성을 향상하고 물기와 먼지를 배출해주는 통풍구
-     간편한 세척과 빠른 건조
-     발을 단단히 고정시키는 피벗식 힐 스트랩
-     Jibbitz™ 참으로 맞춤형 장식 가능
-     Iconic Crocs Comfort™: 가벼움. 유연함. 360도의 편안함.`,
-    dateOfManufacture: new Date('2022-12'),
-    feature: '여성 샌달',
-  },
-  {
-    id: 22,
-    favorites: 75,
-    brand: 5,
-    category: 1,
-    gender: 1,
-    name: '클래식',
-    price: 49000,
-    color: 12,
-    imgURL: 'http://localhost:8000/images/crocs/sandal/crocs_pink_female_sandal.png',
     description: `참신하게. 자유롭게. 편안하게.
      전 세계에 편안함의 혁명을 탄생시킨 아이코닉한 클로그! 활동성과 편안함으로 날이 갈수록 더욱 사랑에 빠지게 될 슈즈입니다. 크록스 클래식 클로그는 가벼운 무게의 Iconic Crocs Comfort™와 모두에게 어울리는 컬러가 특징이며 편안한 착용감을 지속적으로 선사합니다.
      클래식 디테일
