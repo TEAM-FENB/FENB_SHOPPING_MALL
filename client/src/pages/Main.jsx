@@ -85,7 +85,7 @@ const Main = () => {
                 w="28rem"
                 withBorder
                 sx={{
-                  '@media (max-width: 1240px)': {
+                  '@media (max-width: 900px)': {
                     width: '20rem',
                   },
                 }}>

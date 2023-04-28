@@ -278,7 +278,7 @@ const NavigationBar = () => {
 
   return (
     <Navbar height="auto" zIndex={9999} position={{ top: 0, left: 0, borderBottom: '1px solid #ced4da' }}>
-      <Container w="100%" size="auto" m="auto">
+      <Container w="100%" size="120rem" m="auto">
         <Group position="apart">
           <Link to={PATH.MAIN}>
             {colorScheme === 'dark' ? (
