@@ -58,7 +58,7 @@ const MainCarousel = ({ modalOpen, setModalTitle }) => {
         }}>
         {slides.map(({ id, imgURL, alt }) => (
           <Carousel.Slide key={id} onClick={() => handleCarouselClick(id)} sx={{ cursor: 'pointer' }}>
-            <Image src={imgURL} alt={alt} />
+            <Image src={imgURL} alt={alt} fit="contain" height="45rem" />
           </Carousel.Slide>
         ))}
       </Carousel>
