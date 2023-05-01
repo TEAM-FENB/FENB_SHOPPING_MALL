@@ -8,7 +8,7 @@ const {
   getUserCartSelectProductStock,
   getUserCartProduct,
 } = require('../controllers/carts');
-const { findStock, findDetailStock } = require('../controllers/stocks');
+const { getStock, findDetailStock } = require('../controllers/stocks');
 const { cartStockCheck } = require('../middleware/stock');
 const { authCheck } = require('../middleware/auth');
 const { getProduct } = require('../controllers/products');
@@ -19,7 +19,7 @@ router.get('/me', authCheck, cartStockCheck, (req, res) => {
   const { products } = getUserCart(email);
   const addStockToUserCart = products.map(product => ({
     ...product,
-    stocks: findStock(product.id),
+    stocks: getStock(product.id),
   }));
 
   res.send(addStockToUserCart);

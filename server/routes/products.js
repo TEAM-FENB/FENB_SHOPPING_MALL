@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { BRANDS, CATEGORIES, GENDER, COLORS } = require('../constants/products');
 const { getAllProducts, getPageProducts } = require('../controllers/products');
-const { findStock } = require('../controllers/stocks');
+const { getStock } = require('../controllers/stocks');
 
 router.get('/', (req, res) => {
   const { search: searchQuery = null, category: categoryQuery = null } = req.query;
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
       category: CATEGORIES[category],
       gender: GENDER[gender],
       color: COLORS[color],
-      stocks: findStock(id),
+      stocks: getStock(id),
     }))
     .filter(({ name, brand, category }) =>
       searchQuery
@@ -43,7 +43,7 @@ router.get('/pages/:page', (req, res) => {
     category: CATEGORIES[category],
     gender: GENDER[gender],
     color: COLORS[color],
-    stocks: findStock(id),
+    stocks: getStock(id),
   }));
 
   const pageInformation = {
