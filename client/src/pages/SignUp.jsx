@@ -90,25 +90,24 @@ const SignUp = () => {
       <form noValidate onSubmit={handleSubmit(handleSignUp)}>
         <FormEmailInput
           inputType="text"
-          withAsterisk
           id="email"
           name="이메일 주소"
           placeholder="예) fenb@fenb.com"
           register={register}
           formState={formState}
+          withAsterisk
         />
         <FormInput
           inputType="text"
-          withAsterisk
           id="name"
           name="이름"
           placeholder="예) 김펜비"
           register={register}
           formState={formState}
+          withAsterisk
         />
         <FormPhoneInput
           inputType="tel"
-          withAsterisk
           id="phone"
           name="휴대전화번호"
           placeholder="예) 01012345678"
@@ -116,24 +115,25 @@ const SignUp = () => {
           setValue={setValue}
           register={register}
           formState={formState}
+          withAsterisk
         />
         <FormInput
           inputType="password"
-          withAsterisk
           id="password"
           name="비밀번호"
           placeholder="영문 또는 숫자를 6~12자 입력하세요."
           register={register}
           formState={formState}
+          withAsterisk
         />
         <FormInput
           inputType="password"
-          withAsterisk
           id="confirmPassword"
           name="비밀번호 확인"
           placeholder="영문 또는 숫자를 6~12자 입력하세요."
           register={register}
           formState={formState}
+          withAsterisk
         />
         <FormZoneCodeInput
           inputType="text"
@@ -169,7 +169,7 @@ const SignUp = () => {
           radius="md"
           sx={{
             '@media (max-width: 765px)': {
-              width: '20rem',
+              width: '100vw',
             },
           }}>
           가입하기

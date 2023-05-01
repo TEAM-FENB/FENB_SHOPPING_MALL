@@ -38,7 +38,7 @@ const FormEmailInputContainer = ({ inputType, id, name, placeholder, withAsteris
       error={formState?.errors[id]?.message || duplicateEmailError}
       sx={{
         '@media (max-width: 765px)': {
-          width: '20rem',
+          width: '100vw',
         },
       }}
     />

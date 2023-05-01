@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ScrollToTop = () => {
+const SwitchingpageScrollToTop = () => {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
@@ -11,4 +11,4 @@ const ScrollToTop = () => {
   return null;
 };
 
-export default ScrollToTop;
+export default SwitchingpageScrollToTop;

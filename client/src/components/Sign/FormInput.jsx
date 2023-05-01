@@ -16,7 +16,7 @@ const FormInput = ({ inputType, id, name, placeholder, withAsterisk = false, reg
     error={formState?.errors[id]?.message}
     sx={{
       '@media (max-width: 765px)': {
-        width: '20rem',
+        width: '100vw',
       },
     }}
   />

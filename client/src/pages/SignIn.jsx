@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import { useMantineColorScheme, Button, Image, Stack, Center, Title } from '@mantine/core';
@@ -129,7 +128,7 @@ const SignIn = () => {
           radius="md"
           sx={{
             '@media (max-width: 765px)': {
-              width: '20rem',
+              width: '100vw',
             },
           }}>
           로그인
