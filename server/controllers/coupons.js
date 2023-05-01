@@ -16,9 +16,6 @@ const createUser = email => {
   users = [...users, { ...defaultUser, email }];
 };
 
-const hasHistory = (email, historyId) =>
-  users.find(user => user.email === email).histories.some(history => history.id === historyId);
-
 const addHistory = (email, historyId) =>
   (users = users.map(user =>
     user.email === email
@@ -65,7 +62,6 @@ module.exports = {
   getCoupons,
   getCoupon,
   getHistory,
-  hasHistory,
   removeCoupon,
   removeExpireCoupon,
 };
