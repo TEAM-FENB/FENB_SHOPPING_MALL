@@ -30,14 +30,14 @@ const router = createHashRouter([
   {
     path: '/',
     element: <Root />,
-    loader: async () => ({
-      products: await productsLoader(),
-      pageProducts: await pageProductsLoader(),
-    }),
+    loader: productsLoader,
     children: [
       {
         path: PATH.MAIN,
-        loader: slidesLoader,
+        loader: async () => ({
+          slides: await slidesLoader(),
+          pageProducts: await pageProductsLoader(),
+        }),
         element: <Main />,
       },
       {
