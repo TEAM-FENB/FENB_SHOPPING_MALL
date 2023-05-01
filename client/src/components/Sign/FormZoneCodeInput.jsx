@@ -1,8 +1,6 @@
-import React from 'react';
-import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { useMantineColorScheme, TextInput, Button } from '@mantine/core';
+import { useDaumPostcodePopup } from 'react-daum-postcode';
 
-// FormZoneCodeInput Component
 const FormZoneCodeInput = ({
   inputType,
   id,
@@ -52,6 +50,8 @@ const FormZoneCodeInput = ({
       placeholder={placeholder}
       withAsterisk={withAsterisk}
       autoComplete="off"
+      {...register(id)}
+      error={formState?.errors[id]?.message}
       readOnly
       rightSection={
         <Button
@@ -68,8 +68,6 @@ const FormZoneCodeInput = ({
       w="40rem"
       h="3.8rem"
       mb="3.5rem"
-      {...register(id)}
-      error={formState?.errors[id]?.message}
       sx={{
         '@media (max-width: 765px)': {
           width: '100vw',

@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import { useMantineColorScheme, Button, Stack, Title, Center } from '@mantine/core';
@@ -6,10 +5,9 @@ import { notifications } from '@mantine/notifications';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormInput, FormAddressInput, FormZoneCodeInput, FormEmailInput, FormPhoneInput } from '../components';
+import { FormInput, FormMainAddressInput, FormZoneCodeInput, FormEmailInput, FormPhoneInput } from '../components';
 import { signupSchema } from '../schema';
 
-// Styled Link
 const SignInLink = styled(Link)`
   margin-left: 1rem;
   text-decoration: none;
@@ -19,7 +17,6 @@ const SignInLink = styled(Link)`
   }
 `;
 
-// SignUp Component
 const SignUp = () => {
   const { colorScheme } = useMantineColorScheme();
 
@@ -144,7 +141,7 @@ const SignUp = () => {
           register={register}
           formState={formState}
         />
-        <FormAddressInput
+        <FormMainAddressInput
           inputType="text"
           id="mainAddress"
           name="주소"

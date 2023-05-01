@@ -10,7 +10,6 @@ import { FormInput } from '../components';
 import { signinSchema } from '../schema';
 import { userState } from '../recoil/atoms';
 
-// Styled Link
 const SignUpLink = styled(Link)`
   margin-left: 1rem;
   text-decoration: none;
@@ -20,7 +19,6 @@ const SignUpLink = styled(Link)`
   }
 `;
 
-// SignIn Component
 const SignIn = () => {
   const { colorScheme } = useMantineColorScheme();
   const setUser = useSetRecoilState(userState);
@@ -32,7 +30,7 @@ const SignIn = () => {
     resolver: zodResolver(signinSchema),
   });
 
-  const handleLogin = async data => {
+  const handleSignIn = async data => {
     try {
       const response = await axios.post('/api/auth/signin', {
         email: data.email,
@@ -109,7 +107,7 @@ const SignIn = () => {
           />
         )}
       </Title>
-      <form noValidate onSubmit={handleSubmit(handleLogin)}>
+      <form noValidate onSubmit={handleSubmit(handleSignIn)}>
         <FormInput
           inputType="text"
           id="email"
