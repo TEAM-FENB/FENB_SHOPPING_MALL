@@ -3,14 +3,14 @@ const { v4: uuidv4 } = require('uuid');
 const defaultHistory = {
   email: '',
   purchases: [],
-  // coupons: [],
+  coupons: [],
 };
 
 let history = [
   {
     email: 'test@test.com',
     purchases: [],
-    // coupons: [],
+    coupons: [],
   },
 ];
 
@@ -18,7 +18,7 @@ const createUser = email => {
   history = [{ ...defaultHistory, email }, ...history];
 };
 
-const addPurchase = (email, newHistory) => {
+const addPurchaseHistory = (email, newHistory) => {
   history = history.map(user =>
     user.email === email
       ? { ...user, purchases: [{ id: uuidv4(), orderDate: new Date(), ...newHistory }, ...user.purchases] }
@@ -26,28 +26,32 @@ const addPurchase = (email, newHistory) => {
   );
 };
 
-// const addCoupon = (email, historyId) =>
-//   (users = users.map(user =>
-//     user.email === email
-//       ? {
-//           ...user,
-//           coupons: user.coupons.some(history => history.id === historyId)
-//             ? user.coupons.map(history =>
-//                 history.id === historyId ? { ...history, count: history.count + 1 } : history
-//               )
-//             : [{ id: historyId, count: 1 }, ...user.coupons],
-//         }
-//       : user
-//   ));
+const addCouponHistory = (email, historyId) =>
+  (history = history.map(user =>
+    user.email === email
+      ? {
+          ...user,
+          coupons: user.coupons.some(history => history.id === historyId)
+            ? user.coupons.map(history =>
+                history.id === historyId ? { ...history, count: history.count + 1 } : history
+              )
+            : [{ id: historyId, count: 1 }, ...user.coupons],
+        }
+      : user
+  ));
 
-const getPurchases = email => history.find(user => user.email === email).purchases;
+const getPurchasesHistory = email => history.find(user => user.email === email).purchases;
 
-// const getCoupons = email => history.find(user => user.email === email).coupons;
+const getCouponsHistory = email => history.find(user => user.email === email).coupons;
+
+const getCouponHistory = (email, couponId) =>
+  history.find(user => user.email === email).coupons.find(coupon => coupon.id === couponId);
 
 module.exports = {
   createUser,
-  addPurchase,
-  // addCoupon,
-  getPurchases,
-  // getCoupons,
+  addPurchaseHistory,
+  addCouponHistory,
+  getPurchasesHistory,
+  getCouponsHistory,
+  getCouponHistory,
 };

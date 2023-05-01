@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { getUserCart, removeAllCart } = require('../controllers/carts');
 const { removeStock } = require('../controllers/stocks');
-const { getPurchases, addPurchase } = require('../controllers/history');
+const { getPurchasesHistory, addPurchaseHistory } = require('../controllers/history');
 const { getAddress } = require('../controllers/users');
 const { getCoupon, removeCoupon } = require('../controllers/coupons');
 const { cartStockCheck } = require('../middleware/stock');
@@ -58,7 +58,14 @@ router.post('/pay', authCheck, cartStockCheck, expireCoupon, (req, res) => {
   if (totalPrice < minimumPrice)
     return res.status(403).send({ message: `쿠폰을 사용하기 위한 최소 주문 금액을 충족하지 않습니다.` });
 
-  addPurchase(email, { deliveryAddress, products, paymentMethod, totalPrice, discountedTotalPrice, discountAmount });
+  addPurchaseHistory(email, {
+    deliveryAddress,
+    products,
+    paymentMethod,
+    totalPrice,
+    discountedTotalPrice,
+    discountAmount,
+  });
   removeCoupon(email, couponId);
 
   // 상품 사이즈 별 수량 변경하기
@@ -73,7 +80,7 @@ router.post('/pay', authCheck, cartStockCheck, expireCoupon, (req, res) => {
 // 결제 목록 확인
 router.get('/history', authCheck, (req, res) => {
   const { email } = req.locals;
-  const history = getPurchases(email);
+  const history = getPurchasesHistory(email);
 
   res.send(history[0]);
 });
