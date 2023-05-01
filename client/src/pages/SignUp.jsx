@@ -62,9 +62,8 @@ const SignUp = () => {
     <Stack
       align="center"
       h="100rem"
-      p="0"
-      m="0"
       sx={{
+        marginLeft: '3rem',
         input: {
           padding: '0',
           fontSize: '1.6rem',

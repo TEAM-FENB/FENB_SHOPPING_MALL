@@ -58,9 +58,14 @@ const FormZoneCodeInput = ({
           size="xs"
           type="button"
           p="0"
-          m="0 4rem 0 0"
+          m="-4.5rem 4rem 0 0"
           color={colorScheme === 'dark' ? 'gray.6' : 'dark'}
           radius="md"
+          sx={{
+            '@media (max-width: 765px)': {
+              margin: '-4.5rem 10rem 0 0',
+            },
+          }}
           onClick={handleClick}>
           주소찾기
         </Button>

@@ -1336,6 +1336,70 @@ GEL FUNWALKER는 트레일 컨셉이지만 경량성이 강조된 패션성을 �
     dateOfManufacture: new Date('2011-12'),
     feature: '남성 슬리퍼',
   },
+  {
+    id: 69,
+    favorites: 25,
+    brand: 7,
+    category: 1,
+    gender: 1,
+    name: '[데상트] 아이싱 샌달',
+    price: 75050,
+    color: 12,
+    imgURL: 'http://localhost:8000/images/descente/sandal/descente_pink_female_sandal.png',
+    description: `
+   발등 벨크로 스트랩으로 편하게 사이즈 조절이 가능하며, 가볍고 편한 풋베드가 사용되어 여름철 데일리로 신기 좋은 편한 샌달입니다.
+   `,
+    dateOfManufacture: new Date('2023-04'),
+    feature: '여성 샌달',
+  },
+  {
+    id: 70,
+    favorites: 25,
+    brand: 7,
+    category: 1,
+    gender: 1,
+    name: '[데상트] 아이싱 샌달',
+    price: 75050,
+    color: 5,
+    imgURL: 'http://localhost:8000/images/descente/sandal/descente_white_female_sandal.png',
+    description: `
+   발등 벨크로 스트랩으로 편하게 사이즈 조절이 가능하며, 가볍고 편한 풋베드가 사용되어 여름철 데일리로 신기 좋은 편한 샌달입니다.
+   `,
+    dateOfManufacture: new Date('2023-04'),
+    feature: '여성 샌달',
+  },
+  {
+    id: 71,
+    favorites: 25,
+    brand: 7,
+    category: 1,
+    gender: 0,
+    name: '[데상트] 아이싱 샌달',
+    price: 75050,
+    color: 1,
+    imgURL: 'http://localhost:8000/images/descente/sandal/descente_black_male_sandal.png',
+    description: `
+   발등 벨크로 스트랩으로 편하게 사이즈 조절이 가능하며, 가볍고 편한 풋베드가 사용되어 여름철 데일리로 신기 좋은 편한 샌달입니다.
+   `,
+    dateOfManufacture: new Date('2023-04'),
+    feature: '남성 샌달',
+  },
+  {
+    id: 72,
+    favorites: 25,
+    brand: 7,
+    category: 1,
+    gender: 0,
+    name: '[데상트] 아이싱 샌달',
+    price: 75050,
+    color: 7,
+    imgURL: 'http://localhost:8000/images/descente/sandal/descente_green_male_sandal.png',
+    description: `
+   발등 벨크로 스트랩으로 편하게 사이즈 조절이 가능하며, 가볍고 편한 풋베드가 사용되어 여름철 데일리로 신기 좋은 편한 샌달입니다.
+   `,
+    dateOfManufacture: new Date('2023-04'),
+    feature: '남성 샌달',
+  },
 ];
 
 // const generateNextId = () => Math.max(...products.map((product) => product.id)) + 1;

@@ -67,9 +67,8 @@ const SignIn = () => {
     <Stack
       align="center"
       h="75.5rem"
-      p="0"
-      m="0"
       sx={{
+        marginLeft: '3rem',
         input: {
           padding: '0',
           fontSize: '1.6rem',
