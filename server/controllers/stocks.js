@@ -1229,7 +1229,8 @@ const getStocks = () => stocks;
 
 const getStock = id => stocks.find(stock => stock.id === id).products;
 
-const findDetailStock = ({ id, selectedSize }) => getStock(id).find(stock => stock.size === selectedSize);
+const getSelectedSizeStock = (id, selectedSize) => getStock(id).find(stock => stock.size === selectedSize);
+
 const changeStock = ({ id, selectedSize, quantity }) => {
   stocks = stocks.map(stock =>
     stock.id === id
@@ -1243,4 +1244,4 @@ const changeStock = ({ id, selectedSize, quantity }) => {
   );
 };
 
-module.exports = { getStocks, getStock, findDetailStock, changeStock };
+module.exports = { getStocks, getStock, getSelectedSizeStock, changeStock };

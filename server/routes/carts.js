@@ -8,7 +8,7 @@ const {
   getUserCartSelectProductStock,
   getUserCartProduct,
 } = require('../controllers/carts');
-const { getStock, findDetailStock } = require('../controllers/stocks');
+const { getStock, getSelectedSizeStock } = require('../controllers/stocks');
 const { cartStockCheck } = require('../middleware/stock');
 const { authCheck } = require('../middleware/auth');
 const { getProduct } = require('../controllers/products');
@@ -34,7 +34,7 @@ router.post('/me/:id', authCheck, (req, res) => {
   // 이번에 요청한 상품의 재고 확인
   const { products } = getUserCart(email);
   const cartProduct = getUserCartSelectProductStock(products, id, selectedSize);
-  const { stock } = findDetailStock({ id, selectedSize });
+  const { stock } = getSelectedSizeStock(id, selectedSize);
 
   if (stock < quantity + (cartProduct.quantity ?? 0)) {
     return res.status(406).send({ message: '상품의 재고가 없습니다. 수량을 다시 선택해주세요' });
@@ -57,7 +57,7 @@ router.patch('/me/:id', authCheck, cartStockCheck, (req, res) => {
   // 이번에 요청한 상품의 재고 확인
   const { products } = getUserCart(email);
   const { selectedSize } = getUserCartProduct(id, products);
-  const { stock } = findDetailStock({ id, selectedSize });
+  const { stock } = getSelectedSizeStock(id, selectedSize);
 
   if (stock < quantity) return res.status(406).send({ message: '상품의 재고가 없습니다. 수량을 다시 선택해주세요' });
 
