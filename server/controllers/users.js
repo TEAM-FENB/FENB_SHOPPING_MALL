@@ -165,15 +165,12 @@ const getUser = email => users.find(user => user.email === email);
 
 const confirmUser = (email, password) => users.find(user => user.email === email && user.password === password);
 
-const hasUser = (email, password) => users.some(user => user.email === email && user.password === password);
-
 const checkDuplicateEmail = inputEmail => users.some(user => user.email === inputEmail);
 
 module.exports = {
   createUser,
   addAddress,
   getAddress,
-  hasUser,
   getUser,
   confirmUser,
   checkDuplicateEmail,
