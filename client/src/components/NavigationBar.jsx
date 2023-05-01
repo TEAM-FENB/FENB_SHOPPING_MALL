@@ -58,21 +58,22 @@ const SearchBar = () => {
       select: products => products.map(({ id, name, brand, category }) => ({ id, value: name, brand, category })),
     })
   );
-  const [filter, setFilter] = useState('');
-  const [debounced] = useDebouncedValue(filter, 200);
-  const { pathname } = useLocation();
+  const [searchInput, setSearchInput] = useState('');
+  const [debounced] = useDebouncedValue(searchInput, 200);
+  const { search: rawSearch, pathname } = useLocation();
   const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
     document.activeElement.blur();
 
-    navigate(`${PATH.CATEGORY}?search=${filter}`);
+    navigate(`${PATH.CATEGORY}?search=${searchInput}`);
   };
 
   useEffect(() => {
-    if (!pathname.includes('category')) setFilter('');
-  }, [pathname]);
+    const { search, searchValue } = getDecodeSearch(rawSearch);
+    setSearchInput(pathname.includes('category') && search.includes('search') ? searchValue : '');
+  }, [rawSearch, setSearchInput, pathname]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -83,9 +84,8 @@ const SearchBar = () => {
         data={searchProducts}
         radius="xl"
         itemComponent={AutoCompleteItem}
-        name="searchInput"
-        value={filter}
-        onChange={value => setFilter(value)}
+        value={searchInput}
+        onChange={setSearchInput}
         filter={(_, item) =>
           item.value.toLowerCase().includes(debounced.toLowerCase().trim()) ||
           item.brand.en.toLowerCase().includes(debounced.toLowerCase().trim()) ||
@@ -288,13 +288,14 @@ const CategoryNav = () => {
         ),
     })
   );
-  const { pathname, search } = useLocation();
   const [activeTab, setActiveTab] = useState('');
+  const { search: rawSearch } = useLocation();
+  const { searchValue } = getDecodeSearch(rawSearch);
   const { colorScheme } = useMantineColorScheme();
 
   useEffect(() => {
-    setActiveTab(search.includes('category') && pathname.includes('category') ? activeTab : '');
-  }, [pathname, search, activeTab]);
+    setActiveTab(searchValue);
+  }, [searchValue]);
 
   return (
     <Navbar.Section grow mt="md" m="auto" h="auto">
