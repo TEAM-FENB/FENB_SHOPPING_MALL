@@ -1,14 +1,13 @@
 const router = require('express').Router();
 
 const { BRANDS, CATEGORIES, GENDER, COLORS } = require('../constants/products');
-const { getProducts, getPageProducts } = require('../controllers/products');
+const { getAllProducts, getPageProducts } = require('../controllers/products');
 const { findStock } = require('../controllers/stocks');
 
 router.get('/', (req, res) => {
   const { search = null, category = null } = req.query;
-  const products = getProducts();
 
-  const filteredProducts = products
+  const filteredProducts = getAllProducts()
     .map(({ id, brand, category, gender, color, ...rest }) => ({
       ...rest,
       id,
@@ -32,7 +31,7 @@ router.get('/', (req, res) => {
 router.get('/pages/:page', (req, res) => {
   const page = +req.params.page;
   const pageSize = +(req.query.pageSize ?? 5);
-  const products = getProducts();
+  const products = getAllProducts();
   const pageProducts = getPageProducts(page, pageSize).map(({ id, brand, category, gender, color, ...rest }) => ({
     ...rest,
     id,
