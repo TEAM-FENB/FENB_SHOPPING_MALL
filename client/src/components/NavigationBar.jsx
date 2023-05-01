@@ -17,7 +17,6 @@ import {
 import { BiSearch } from 'react-icons/bi';
 import { SlHandbag } from 'react-icons/sl';
 import { BsFillSuitHeartFill } from 'react-icons/bs';
-import { TbMoonFilled, TbSunFilled } from 'react-icons/tb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { forwardRef, useEffect, useState } from 'react';
@@ -29,28 +28,12 @@ import { productsQuery } from '../api/loader';
 import { userState } from '../recoil/atoms';
 import { authQueryKey } from '../constants/queryKey';
 import { getDecodeSearch } from '../utils/location';
+import { DarkMode } from './index';
 
 const topList = [
   { kr: '회원가입', en: 'signup' },
   { kr: '로그인', en: 'signin' },
 ];
-
-const DarkMode = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-
-  return (
-    <Tooltip label="다크모드">
-      <ActionIcon
-        size="xl"
-        onClick={() => toggleColorScheme()}
-        sx={theme => ({
-          color: theme.colorScheme === 'dark' ? theme.colors.yellow[4] : theme.colors.dark[6],
-        })}>
-        {colorScheme === 'dark' ? <TbSunFilled size="2.8rem" /> : <TbMoonFilled size="2.8rem" />}
-      </ActionIcon>
-    </Tooltip>
-  );
-};
 
 const SearchBar = () => {
   const { data: searchProducts } = useQuery(
