@@ -16,14 +16,8 @@ const createUser = email => {
   users = [...users, { ...defaultUser, email }];
 };
 
-const hasCoupon = (email, id) =>
-  users.some(user => user.email === email && user.coupons.some(coupon => coupon.id === id));
-
 const hasHistory = (email, historyId) =>
   users.find(user => user.email === email).histories.some(history => history.id === historyId);
-
-const getHistory = (email, historyId) =>
-  users.find(user => user.email === email).histories.find(history => history.id === historyId);
 
 const addHistory = (email, historyId) =>
   (users = users.map(user =>
@@ -41,6 +35,9 @@ const addHistory = (email, historyId) =>
 
 const addCoupon = (email, coupon) =>
   (users = users.map(user => (user.email === email ? { ...user, coupons: [coupon, ...user.coupons] } : user)));
+
+const getHistory = (email, historyId) =>
+  users.find(user => user.email === email).histories.find(history => history.id === historyId);
 
 const getCoupons = email => users.find(user => user.email === email).coupons;
 
@@ -68,7 +65,6 @@ module.exports = {
   getCoupons,
   getCoupon,
   getHistory,
-  hasCoupon,
   hasHistory,
   removeCoupon,
   removeExpireCoupon,

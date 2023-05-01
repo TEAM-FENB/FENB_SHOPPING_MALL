@@ -7,7 +7,7 @@ const { getAddress } = require('../controllers/users');
 const { getCoupon, removeCoupon } = require('../controllers/coupons');
 const { cartStockCheck } = require('../middleware/stock');
 const { authCheck } = require('../middleware/auth');
-const { expireCoupon, checkCoupon } = require('../middleware/coupon');
+const { expireCoupon } = require('../middleware/coupon');
 
 // 결제 페이지 이동 전 check 용도
 router.get('/', authCheck, cartStockCheck, expireCoupon, (req, res) => {
@@ -41,7 +41,7 @@ router.get('/coupons/:id', authCheck, (req, res) => {
 });
 
 // 결제하기 버튼 클릭시 사용해주세요
-router.post('/pay', authCheck, cartStockCheck, expireCoupon, checkCoupon, (req, res) => {
+router.post('/pay', authCheck, cartStockCheck, expireCoupon, (req, res) => {
   const { email } = req.locals;
   const { addressId, paymentMethod, couponId = null } = req.body;
 
