@@ -13,8 +13,8 @@ const Carousel = ({ modalOpen, setModalTitle }) => {
   const { data: slides } = useQuery(slidesQuery());
   const { data: verify } = useQuery(verifyQuery());
   const autoplay = useRef(Autoplay({ delay: 2000 }));
-  const sideBackgroundColorsRef = useRef(slides.map(slide => slide.sideBackgroundColor));
-  const [sideBackgroundColor, setSideBackgroundColor] = useState(sideBackgroundColorsRef.current.at(0));
+  const [carouselIdx, setCarouselIdx] = useState(0);
+  const currentBackgroundColor = slides.find((_, idx) => idx === carouselIdx).sideBackgroundColor;
   const navigate = useNavigate();
 
   const handleCarouselClick = async couponId => {
@@ -36,7 +36,7 @@ const Carousel = ({ modalOpen, setModalTitle }) => {
       w="100%"
       maw="100%"
       pos="relative"
-      bg={sideBackgroundColor}
+      bg={currentBackgroundColor}
       sx={{
         transition: 'all .1s ',
       }}>
@@ -50,7 +50,7 @@ const Carousel = ({ modalOpen, setModalTitle }) => {
         nextControlIcon={<SlArrowRight size="5rem" color="white" />}
         onMouseEnter={autoplay.current.stop}
         onMouseLeave={autoplay.current.reset}
-        onSlideChange={idx => setSideBackgroundColor(sideBackgroundColorsRef.current.at(idx))}
+        onSlideChange={setCarouselIdx}
         pos="static"
         sx={{
           '.mantine-Carousel-control': {

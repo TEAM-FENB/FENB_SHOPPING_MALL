@@ -26,113 +26,6 @@ import { signOut } from '../../api';
 import { PATH } from '../../constants';
 import { useSearchProducts } from '../../hooks/products';
 
-const topList = [
-  { kr: '회원가입', en: 'signup' },
-  { kr: '로그인', en: 'signin' },
-];
-
-const NavigationAvatar = () => {
-  const [user, setUser] = useRecoilState(userState);
-  const navigate = useNavigate();
-  const { search: rawSearch, pathname } = useLocation();
-  const { search } = getDecodeSearch(rawSearch);
-
-  const handleSignOutClick = async () => {
-    await signOut();
-    setUser(null);
-    navigate(PATH.MAIN);
-  };
-
-  const handleRedirectClick = (path, state) => {
-    navigate(path, { state });
-  };
-
-  return (
-    <Menu shadow="md" width="20rem" transitionProps={{ transition: 'rotate-right', duration: 150 }}>
-      <Menu.Target>
-        <Avatar radius="xl" size="5rem" sx={{ cursor: 'pointer' }} />
-      </Menu.Target>
-
-      <Menu.Dropdown>
-        <Menu.Label fz="1.6rem" fw="bold">
-          {user ? `${user.username}님 환영합니다.` : '로그인이 필요합니다.'}
-        </Menu.Label>
-        <Menu.Divider />
-
-        <Menu.Item
-          fz="1.6rem"
-          fw="bold"
-          disabled={!user}
-          icon={<BsFillSuitHeartFill size="2rem" color="tomato" />}
-          onClick={() => handleRedirectClick(PATH.WISHLIST)}>
-          관심상품
-        </Menu.Item>
-        <Menu.Item
-          fz="1.6rem"
-          fw="bold"
-          disabled={!user}
-          icon={<SlHandbag size="2rem" />}
-          onClick={() => handleRedirectClick(PATH.CART)}>
-          장바구니
-        </Menu.Item>
-
-        <Menu.Divider />
-
-        {user ? (
-          <Menu.Item fz="1.6rem" fw="bold" color="red" onClick={handleSignOutClick}>
-            로그아웃
-          </Menu.Item>
-        ) : (
-          topList.map(({ kr, en }) => (
-            <Menu.Item
-              key={en}
-              fz="1.6rem"
-              fw="bold"
-              onClick={() => handleRedirectClick(PATH[en.toUpperCase()], `${pathname}${search}`)}>
-              {kr}
-            </Menu.Item>
-          ))
-        )}
-      </Menu.Dropdown>
-    </Menu>
-  );
-};
-
-const TopArea = () => {
-  const [user, setUser] = useRecoilState(userState);
-  const { search: rawSearch, pathname } = useLocation();
-  const { search } = getDecodeSearch(rawSearch);
-  const navigate = useNavigate();
-
-  const handleSignOutClick = async () => {
-    await signOut();
-    setUser(null);
-    navigate(PATH.MAIN);
-  };
-
-  return (
-    <Navbar.Section pt="xs">
-      <Flex gap="lg" align="center" justify="flex-end" fz="1.3rem" color="#222222">
-        {user ? (
-          <>
-            <Text onClick={handleSignOutClick} sx={{ cursor: 'pointer' }}>
-              로그아웃
-            </Text>
-            <Text>{user.username}님 환영합니다.</Text>
-          </>
-        ) : (
-          topList.map(({ kr, en }) => (
-            <Link key={en} to={PATH[en.toUpperCase()]} state={`${pathname}${search}`}>
-              {kr}
-            </Link>
-          ))
-        )}
-        <DarkMode />
-      </Flex>
-    </Navbar.Section>
-  );
-};
-
 const AutoCompleteItem = forwardRef(({ value, id, onMouseDown, ...rest }, ref) => {
   const navigate = useNavigate();
 
@@ -149,7 +42,7 @@ const AutoCompleteItem = forwardRef(({ value, id, onMouseDown, ...rest }, ref) =
 });
 
 const SearchBar = () => {
-  const searchProducts = useSearchProducts();
+  const { searchProducts } = useSearchProducts();
   const [searchInput, setSearchInput] = useState('');
   const [debounced] = useDebouncedValue(searchInput, 200);
   const { search: rawSearch, pathname } = useLocation();
@@ -191,69 +84,161 @@ const SearchBar = () => {
   );
 };
 
-const MiddleArea = () => {
-  const { pathname } = useLocation();
+const Logo = () => {
+  const { colorScheme } = useMantineColorScheme();
 
   return (
-    <Navbar.Section>
-      <Flex justify="flex-end" align="center" gap="xl">
-        <SearchBar />
-        <Link to={PATH.WISHLIST} state={pathname}>
-          <Tooltip label="관심상품">
-            <ActionIcon size="xl">
-              <BsFillSuitHeartFill size="2.8rem" color="tomato" />
-            </ActionIcon>
-          </Tooltip>
-        </Link>
-        <Link to={PATH.CART} state={pathname}>
-          <Tooltip label="장바구니">
-            <ActionIcon size="xl">
-              <SlHandbag size="2.8rem" />
-            </ActionIcon>
-          </Tooltip>
-        </Link>
-      </Flex>
-    </Navbar.Section>
+    <Link to={PATH.MAIN}>
+      <Image
+        width="10rem"
+        pl="1rem"
+        src={`images/logo/${colorScheme === 'dark' ? 'darkMain' : 'main'}.svg`}
+        alt="486"
+      />
+    </Link>
   );
 };
 
-const UtilArea = () => {
-  const matches = useMediaQuery('(min-width: 880px)');
+const SimpleUtilArea = () => {
+  const [user, setUser] = useRecoilState(userState);
+  const { search: rawSearch, pathname } = useLocation();
+  const { search } = getDecodeSearch(rawSearch);
+  const navigate = useNavigate();
+
+  const handleSignOutClick = async () => {
+    await signOut();
+    setUser(null);
+    navigate(PATH.MAIN);
+  };
 
   return (
     <Stack>
-      {matches ? (
-        <>
-          <TopArea />
-          <MiddleArea />
-        </>
-      ) : (
-        <>
-          <Group position="right">
-            <NavigationAvatar />
-            <DarkMode />
-          </Group>
+      <Navbar.Section pt="xs">
+        <Flex gap="lg" align="center" justify="flex-end" fz="1.3rem" color="#222222">
+          {user ? (
+            <>
+              <Text onClick={handleSignOutClick} sx={{ cursor: 'pointer' }}>
+                로그아웃
+              </Text>
+              <Text>{user.username}님 환영합니다.</Text>
+            </>
+          ) : (
+            <>
+              <Link key="signup" to={PATH.SIGNUP} state={`${pathname}${search}`}>
+                회원가입
+              </Link>
+              <Link key="signin" to={PATH.SIGNIN} state={`${pathname}${search}`}>
+                로그인
+              </Link>
+            </>
+          )}
+          <DarkMode />
+        </Flex>
+      </Navbar.Section>
+      <Navbar.Section>
+        <Flex justify="flex-end" align="center" gap="xl">
           <SearchBar />
-        </>
-      )}
+          <Link to={PATH.WISHLIST} state={pathname}>
+            <Tooltip label="관심상품">
+              <ActionIcon size="xl">
+                <BsFillSuitHeartFill size="2.8rem" color="tomato" />
+              </ActionIcon>
+            </Tooltip>
+          </Link>
+          <Link to={PATH.CART} state={pathname}>
+            <Tooltip label="장바구니">
+              <ActionIcon size="xl">
+                <SlHandbag size="2.8rem" />
+              </ActionIcon>
+            </Tooltip>
+          </Link>
+        </Flex>
+      </Navbar.Section>
     </Stack>
   );
 };
 
+const UtilArea = () => {
+  const [user, setUser] = useRecoilState(userState);
+  const { search: rawSearch, pathname } = useLocation();
+  const { search } = getDecodeSearch(rawSearch);
+  const navigate = useNavigate();
+
+  const handleSignOutClick = async () => {
+    await signOut();
+    setUser(null);
+    navigate(PATH.MAIN);
+  };
+
+  return (
+    <Group>
+      <SearchBar />
+      <Menu shadow="md" width="20rem" transitionProps={{ transition: 'rotate-right', duration: 150 }}>
+        <Menu.Target>
+          <Avatar radius="xl" size="5rem" sx={{ cursor: 'pointer' }} />
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          <Menu.Label fz="1.6rem" fw="bold">
+            {user ? `${user.username}님 환영합니다.` : '로그인이 필요합니다.'}
+          </Menu.Label>
+          <Menu.Divider />
+
+          <Menu.Item
+            fz="1.6rem"
+            fw="bold"
+            disabled={!user}
+            icon={<BsFillSuitHeartFill size="2rem" color="tomato" />}
+            onClick={() => navigate(PATH.WISHLIST)}>
+            관심상품
+          </Menu.Item>
+          <Menu.Item
+            fz="1.6rem"
+            fw="bold"
+            disabled={!user}
+            icon={<SlHandbag size="2rem" />}
+            onClick={() => navigate(PATH.CART)}>
+            장바구니
+          </Menu.Item>
+
+          <Menu.Divider />
+
+          {user ? (
+            <Menu.Item fz="1.6rem" fw="bold" color="red" onClick={handleSignOutClick}>
+              로그아웃
+            </Menu.Item>
+          ) : (
+            <>
+              <Menu.Item
+                key="signup"
+                fz="1.6rem"
+                fw="bold"
+                onClick={() => navigate(PATH.SIGNUP, { state: `${pathname}${search}` })}>
+                회원가입
+              </Menu.Item>
+              <Menu.Item
+                key="signin"
+                fz="1.6rem"
+                fw="bold"
+                onClick={() => navigate(PATH.SIGNIN, { state: `${pathname}${search}` })}>
+                로그인
+              </Menu.Item>
+            </>
+          )}
+        </Menu.Dropdown>
+      </Menu>
+      <DarkMode />
+    </Group>
+  );
+};
+
 const Main = () => {
-  const { colorScheme } = useMantineColorScheme();
+  const matches = useMediaQuery('(min-width: 880px)');
 
   return (
     <Group position="apart">
-      <Link to={PATH.MAIN}>
-        <Image
-          width="10rem"
-          pl="1rem"
-          src={`images/logo/${colorScheme === 'dark' ? 'darkMain' : 'main'}.svg`}
-          alt="486"
-        />
-      </Link>
-      <UtilArea />
+      <Logo />
+      {matches ? <SimpleUtilArea /> : <UtilArea />}
     </Group>
   );
 };
