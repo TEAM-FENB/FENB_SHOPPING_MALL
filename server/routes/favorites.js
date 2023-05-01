@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const router = require('express').Router();
 
 const { authCheck } = require('../middleware/auth');
-const { toggleProductFavorite, findProduct } = require('../controllers/products');
+const { toggleProductFavorite, getProduct } = require('../controllers/products');
 const { addFavorite, removeFavoriteProduct, getFavorites, getFavorite } = require('../controllers/favorites');
 const { BRANDS, CATEGORIES, GENDER, COLORS } = require('../constants/products');
 
@@ -33,7 +33,7 @@ router.post('/me', authCheck, (req, res) => {
 
   const isFavorite = !!getFavorite(email, id);
 
-  isFavorite ? removeFavoriteProduct(email, id) : addFavorite(email, findProduct(id));
+  isFavorite ? removeFavoriteProduct(email, id) : addFavorite(email, getProduct(id));
   toggleProductFavorite(id, isFavorite);
 
   res.send({ message: '위시리스트에 추가되었습니다.' });

@@ -11,7 +11,7 @@ const {
 const { findStock, findDetailStock } = require('../controllers/stocks');
 const { cartStockCheck } = require('../middleware/stock');
 const { authCheck } = require('../middleware/auth');
-const { findProduct } = require('../controllers/products');
+const { getProduct } = require('../controllers/products');
 
 router.get('/me', authCheck, cartStockCheck, (req, res) => {
   const { email } = req.locals;
@@ -40,7 +40,7 @@ router.post('/me/:id', authCheck, (req, res) => {
     return res.status(406).send({ message: '상품의 재고가 없습니다. 수량을 다시 선택해주세요' });
   }
 
-  const product = findProduct(id);
+  const product = getProduct(id);
 
   if (cartProduct.quantity) changeCart({ email, id, quantity: quantity + cartProduct.quantity });
   else addCart({ email, selectedSize, quantity, ...product });
