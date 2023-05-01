@@ -17,11 +17,11 @@ const Carousel = ({ modalOpen, setModalTitle }) => {
   const [sideBackgroundColor, setSideBackgroundColor] = useState(sideBackgroundColorsRef.current.at(0));
   const navigate = useNavigate();
 
-  const handleCarouselClick = async id => {
+  const handleCarouselClick = async couponId => {
     if (!verify) navigate(PATH.SIGNIN);
 
     try {
-      const { message } = await addCoupon(id);
+      const { message } = await addCoupon(couponId);
       setModalTitle(message);
     } catch (e) {
       const { message } = e.response.data;
@@ -63,10 +63,13 @@ const Carousel = ({ modalOpen, setModalTitle }) => {
             height: '1rem',
           },
         }}>
-        {slides.map(({ id, imgURL, alt }) => (
-          <Carousel.Slide key={id} onClick={() => handleCarouselClick(id)} sx={{ cursor: 'pointer' }}>
+        {slides.map(({ couponId, imgURL, alt }) => (
+          <MantineCarousel.Slide
+            key={couponId}
+            onClick={() => handleCarouselClick(couponId)}
+            sx={{ cursor: 'pointer' }}>
             <Image src={imgURL} alt={alt} fit="contain" height="45rem" />
-          </Carousel.Slide>
+          </MantineCarousel.Slide>
         ))}
       </MantineCarousel>
     </Container>

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { v4: uuidv4 } = require('uuid');
 
 const { authCheck } = require('../middleware/auth');
 const { expireCoupon } = require('../middleware/coupon');
@@ -28,7 +29,7 @@ router.post('/:id', authCheck, expireCoupon, (req, res) => {
   if (history && history.count === coupon.limit)
     return res.status(403).send({ message: '더이상 발급 받으실 수 없습니다.' });
 
-  const newCoupon = { ...coupon, endTime: getDateAfter(7) };
+  const newCoupon = { ...coupon, couponId: coupon.id, id: uuidv4(), endTime: getDateAfter(7) };
 
   addCoupon(email, newCoupon);
   addHistory(email, couponId);
