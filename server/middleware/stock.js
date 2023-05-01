@@ -1,10 +1,8 @@
-const jwt = require('jsonwebtoken');
-
 const { getSelectedSizeStock } = require('../controllers/stocks');
 const { getUserCart } = require('../controllers/carts');
 
 const cartStockCheck = (req, res, next) => {
-  const { email } = jwt.decode(req.cookies.accessToken);
+  const { email } = req.locals;
   const { products } = getUserCart(email);
 
   const isSoldOut = products.some(
