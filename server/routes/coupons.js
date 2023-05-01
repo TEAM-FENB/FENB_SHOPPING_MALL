@@ -15,23 +15,23 @@ router.get('/', authCheck, expireCoupon, (req, res) => {
 
 router.post('/:id', authCheck, expireCoupon, (req, res) => {
   const { email } = req.locals;
-  const { id } = req.params;
+  const { id: couponId } = req.params;
 
-  const coupon = COUPONS.find(coupon => coupon.id === id);
+  const coupon = COUPONS.find(coupon => coupon.id === couponId);
   if (!coupon) return res.status(404).send({ message: '요청하신 쿠폰이 없습니다.' });
-
-  const newCoupon = { ...coupon, endTime: getDateAfter(7) };
 
   const user = getUser(email);
   if (user.createAt.getTime() < getDateAfter(-7).getTime())
     return res.status(401).send({ message: '가입기간이 7일 넘어서 발급받을 수 없습니다.' });
 
-  const history = getHistory(email, id);
+  const history = getHistory(email, couponId);
   if (history && history.count === newCoupon.limit)
     return res.status(403).send({ message: '더이상 발급 받으실 수 없습니다.' });
 
+  const newCoupon = { ...coupon, endTime: getDateAfter(7) };
+
   addCoupon(email, newCoupon);
-  addHistory(email, id);
+  addHistory(email, couponId);
 
   res.send({ message: '쿠폰이 정상발급되었습니다.' });
 });
