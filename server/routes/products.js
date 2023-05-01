@@ -5,7 +5,7 @@ const { getAllProducts, getPageProducts } = require('../controllers/products');
 const { findStock } = require('../controllers/stocks');
 
 router.get('/', (req, res) => {
-  const { search = null, category = null } = req.query;
+  const { search: searchQuery = null, category: categoryQuery = null } = req.query;
 
   const filteredProducts = getAllProducts()
     .map(({ id, brand, category, gender, color, ...rest }) => ({
@@ -17,11 +17,15 @@ router.get('/', (req, res) => {
       color: COLORS[color],
       stocks: findStock(id),
     }))
-    .filter(product =>
-      search
-        ? product.name.includes(search) || product.brand.kr.includes(search) || product.brand.en.includes(search)
-        : category
-        ? product.category.en.includes(category)
+    .filter(({ name, brand, category }) =>
+      searchQuery
+        ? name.includes(searchQuery) ||
+          brand.kr.includes(searchQuery) ||
+          brand.en.includes(searchQuery) ||
+          category.en.includes(searchQuery) ||
+          category.kr.includes(searchQuery)
+        : categoryQuery
+        ? category.en.includes(categoryQuery)
         : true
     );
 
@@ -51,11 +55,5 @@ router.get('/pages/:page', (req, res) => {
 
   res.send(pageInformation);
 });
-
-// router.post('/', (req, res) => {
-//   const { product } = req.body;
-
-//   products.createProduct(product);
-// });
 
 module.exports = router;

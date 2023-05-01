@@ -54,7 +54,9 @@ const DarkMode = () => {
 
 const SearchBar = () => {
   const { data: searchProducts } = useQuery(
-    productsQuery({ select: products => products.map(({ id, name, brand }) => ({ id, value: name, brand })) })
+    productsQuery({
+      select: products => products.map(({ id, name, brand, category }) => ({ id, value: name, brand, category })),
+    })
   );
   const [filter, setFilter] = useState('');
   const [debounced] = useDebouncedValue(filter, 200);
@@ -77,7 +79,7 @@ const SearchBar = () => {
       <Autocomplete
         size="xl"
         icon={<BiSearch size="2rem" />}
-        placeholder="제조사명, 상품명"
+        placeholder="상품 검색"
         data={searchProducts}
         radius="xl"
         itemComponent={AutoCompleteItem}
@@ -87,7 +89,9 @@ const SearchBar = () => {
         filter={(_, item) =>
           item.value.toLowerCase().includes(debounced.toLowerCase().trim()) ||
           item.brand.en.toLowerCase().includes(debounced.toLowerCase().trim()) ||
-          item.brand.kr.toLowerCase().includes(debounced.toLowerCase().trim())
+          item.brand.kr.toLowerCase().includes(debounced.toLowerCase().trim()) ||
+          item.category.kr.toLowerCase().includes(debounced.toLowerCase().trim()) ||
+          item.category.en.toLowerCase().includes(debounced.toLowerCase().trim())
         }
         nothingFound={<Text>검색결과가 없습니다.</Text>}
       />
@@ -284,13 +288,13 @@ const CategoryNav = () => {
         ),
     })
   );
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const [activeTab, setActiveTab] = useState('');
   const { colorScheme } = useMantineColorScheme();
 
   useEffect(() => {
-    setActiveTab(pathname.includes('category') ? activeTab : '');
-  }, [pathname, activeTab]);
+    setActiveTab(search.includes('category') && pathname.includes('category') ? activeTab : '');
+  }, [pathname, search, activeTab]);
 
   return (
     <Navbar.Section grow mt="md" m="auto" h="auto">
