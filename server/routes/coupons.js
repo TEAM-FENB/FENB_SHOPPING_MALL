@@ -25,7 +25,7 @@ router.post('/:id', authCheck, expireCoupon, (req, res) => {
     return res.status(401).send({ message: '가입기간이 7일 넘어서 발급받을 수 없습니다.' });
 
   const history = getHistory(email, couponId);
-  if (history && history.count === newCoupon.limit)
+  if (history && history.count === coupon.limit)
     return res.status(403).send({ message: '더이상 발급 받으실 수 없습니다.' });
 
   const newCoupon = { ...coupon, endTime: getDateAfter(7) };
