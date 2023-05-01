@@ -14,7 +14,7 @@ import {
 } from './pages';
 import { PATH } from './constants';
 import {
-  carouselLoader,
+  slidesLoader,
   cartsLoader,
   couponsLoader,
   favoritesLoader,
@@ -37,7 +37,7 @@ const router = createHashRouter([
     children: [
       {
         path: PATH.MAIN,
-        loader: carouselLoader,
+        loader: slidesLoader,
         element: <Main />,
       },
       {

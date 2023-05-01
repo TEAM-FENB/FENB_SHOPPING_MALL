@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const COUPONS = require('../constants/coupons');
-const { getCarousel } = require('../controllers/carousel');
+const { getSlides } = require('../controllers/slides');
 
 router.get('/', (req, res) => {
-  const carouselContainCoupon = getCarousel().map((slide, idx) => ({
+  const slides = getSlides().map((slide, idx) => ({
     id: COUPONS[idx].id,
     ...slide,
   }));
 
-  res.send(carouselContainCoupon);
+  res.send(slides);
 });
 
 module.exports = router;

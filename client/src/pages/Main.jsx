@@ -7,13 +7,13 @@ import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import { useDisclosure } from '@mantine/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import PATH from '../constants/path';
-import { carouselQuery, verifyQuery } from '../api/loader';
+import { slidesQuery, verifyQuery } from '../api/loader';
 import { addCoupon } from '../api';
 import { useFetchPageProducts } from '../hooks';
 import useObserver from '../hooks/useObserver';
 
 const MainCarousel = ({ modalOpen, setModalTitle }) => {
-  const { data: slides } = useQuery(carouselQuery());
+  const { data: slides } = useQuery(slidesQuery());
   const { data: verify } = useQuery(verifyQuery());
   const autoplay = useRef(Autoplay({ delay: 2000 }));
   const sideBackgroundColorsRef = useRef(slides.map(slide => slide.sideBackgroundColor));
