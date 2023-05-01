@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { getUserCart, removeAllCart } = require('../controllers/carts');
-const { changeStock } = require('../controllers/stocks');
+const { removeStock } = require('../controllers/stocks');
 const { getLatestHistory, addHistory } = require('../controllers/history');
 const { getAddress } = require('../controllers/users');
 const { getCoupon, removeCoupon } = require('../controllers/coupons');
@@ -64,7 +64,7 @@ router.post('/pay', authCheck, cartStockCheck, expireCoupon, (req, res) => {
 
   // 상품 사이즈 별 수량 변경하기
   const userCart = getUserCart(email);
-  userCart.products.forEach(product => changeStock(product));
+  userCart.products.forEach(product => removeStock(product));
 
   // 유저 장바구니 비우기
   removeAllCart(email);
