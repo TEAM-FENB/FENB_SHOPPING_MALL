@@ -23,7 +23,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { DarkMode } from '../index';
 import { userState } from '../../recoil/atoms';
 import { getDecodeSearch } from '../../utils/location';
-import { requestSignout } from '../../api';
+import { requestSignout } from '../../api/fetch';
 import { PATH } from '../../constants';
 import { useSearchProducts } from '../../hooks/products';
 import { authQueryKey } from '../../constants/queryKey';

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchUser } from '../../api';
+import { fetchUser } from '../../api/fetch';
 import { ADDRESS_QUERY_KEY, STALE_TIME } from '../../constants';
 
 const useAddressQuery = options => {

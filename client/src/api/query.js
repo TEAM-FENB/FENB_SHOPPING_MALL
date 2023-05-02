@@ -19,7 +19,7 @@ import {
   fetchPageProducts,
   fetchProducts,
   fetchUser,
-} from './index';
+} from './fetch';
 
 export const productsQuery = options => ({
   queryKey: productsQueryKey,
@@ -85,7 +85,7 @@ export const couponsQuery = options => ({
   ...options,
 });
 
-export const historyQuery = ({ queryKey, ...options }) => ({
+export const historyQuery = ({ queryKey, ...options } = {}) => ({
   queryKey: [...historyQueryKey, queryKey],
   queryFn: fetchHistory,
   retry: 0,
