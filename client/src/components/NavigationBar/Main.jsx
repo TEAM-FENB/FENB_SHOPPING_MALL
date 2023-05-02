@@ -23,7 +23,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { DarkMode } from '../index';
 import { userState } from '../../recoil/atoms';
 import { getDecodeSearch } from '../../utils/location';
-import { signOut } from '../../api';
+import { requestSignout } from '../../api';
 import { PATH } from '../../constants';
 import { useSearchProducts } from '../../hooks/products';
 import { authQueryKey } from '../../constants/queryKey';
@@ -220,7 +220,7 @@ const Main = () => {
   const queryClient = useQueryClient();
 
   const handleSignOutClick = async () => {
-    await signOut();
+    await requestSignout();
     setUser(null);
     queryClient.removeQueries(authQueryKey);
     navigate(PATH.MAIN);

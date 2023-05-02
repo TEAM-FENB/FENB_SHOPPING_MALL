@@ -23,7 +23,7 @@ export const productsLoader = async () => {
   }
 };
 
-export const pageProductsLoader = async (search = 'all') => {
+export const pageProductsLoader = async search => {
   const { queryKey, queryFn } = pageProductsQuery(search);
 
   try {
