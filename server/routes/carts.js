@@ -1,13 +1,6 @@
 const router = require('express').Router();
 
-const {
-  addCart,
-  getUserCart,
-  changeCart,
-  removeCart,
-  getUserCartSelectProductStock,
-  getUserCartProduct,
-} = require('../controllers/carts');
+const { addCart, getUserCart, changeCart, removeCart, getUserCartSelectProductStock } = require('../controllers/carts');
 const { getStock, getSelectedSizeStock } = require('../controllers/stocks');
 const { cartStockCheck } = require('../middleware/stock');
 const { authCheck } = require('../middleware/auth');
@@ -42,7 +35,7 @@ router.post('/me/:id', authCheck, (req, res) => {
 
   const product = getProduct(id);
 
-  if (cartProduct.quantity) changeCart({ email, id, quantity: quantity + cartProduct.quantity });
+  if (cartProduct.quantity) changeCart({ email, id, selectedSize, quantity: quantity + cartProduct.quantity });
   else addCart({ email, selectedSize, quantity, ...product });
 
   res.send({ message: '장바구니에 상품이 정상적으로 추가되었습니다.' });
@@ -67,9 +60,10 @@ router.patch('/me/:id', authCheck, cartStockCheck, (req, res) => {
 // 삭제
 router.delete('/me/:id', authCheck, cartStockCheck, (req, res) => {
   const { email } = req.locals;
+  const selectedSize = +req.query.selectedSize;
   const id = +req.params.id;
 
-  removeCart({ email, id });
+  removeCart({ email, id, selectedSize });
   res.send({ message: '장바구니 상품이 삭제되었습니다.' });
 });
 
