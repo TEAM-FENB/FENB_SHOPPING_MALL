@@ -59,7 +59,7 @@ let users = [
 ];
 
 // 신규 회원가입 유저 정보 추가
-const createUser = ({ email, name, phone, password, ...address }) => {
+const createUser = ({ email, name, phone, password, createAt, ...address }) => {
   users = [
     {
       ...defaultUser,
@@ -67,6 +67,7 @@ const createUser = ({ email, name, phone, password, ...address }) => {
       password,
       name,
       phone,
+      createAt,
       addresses: [
         {
           ...defaultAddress,
@@ -160,7 +161,10 @@ const removeAddress = (email, id) => {
   );
 };
 
-const getUser = email => users.find(user => user.email === email);
+const getUser = email => {
+  console.log(users);
+  return users.find(user => user.email === email);
+};
 
 const confirmUser = (email, password) => users.find(user => user.email === email && user.password === password);
 
